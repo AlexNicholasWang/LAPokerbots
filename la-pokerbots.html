@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LA Pokerbots — Mission: Westwood Orbit · UCLA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --space:#0E0B22;
+    --space-2:#1A1440;
+    --blue:#7C5CFF;         /* nebula violet */
+    --blue-bright:#6FD6FF;
+    --gold:#FF6FA5;         /* nebula pink */
+    --gold-soft:#FF8FBA;
+    --card:#F4F1E4;
+    --red:#E0574F;
+    --text:#E9E6F7;
+    --dim:#9A93BC;
+    --line:rgba(160,150,220,.18);
+    --display:'Michroma', sans-serif;
+    --body:'Space Grotesk', sans-serif;
+    --mono:'Space Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    color:var(--text);
+    line-height:1.65;
+    background:
+      radial-gradient(1000px 600px at 80% -10%, rgba(124,92,255,.30), transparent 60%),
+      radial-gradient(800px 500px at 5% 30%, rgba(124,92,255,.14), transparent 60%),
+      radial-gradient(700px 500px at 90% 85%, rgba(255,111,165,.07), transparent 60%),
+      var(--space);
+    overflow-x:hidden;
+    position:relative;
+  }
+  a{color:inherit}
+  ::selection{background:var(--gold);color:var(--space)}
+
+  /* starfield */
+  .stars, .stars2{
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-repeat:repeat;
+  }
+  .stars{
+    background-image:
+      radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,.9), transparent),
+      radial-gradient(1px 1px at 130px 90px, rgba(255,255,255,.6), transparent),
+      radial-gradient(1.5px 1.5px at 210px 40px, rgba(255,143,186,.85), transparent),
+      radial-gradient(1px 1px at 300px 140px, rgba(255,255,255,.7), transparent),
+      radial-gradient(1px 1px at 80px 190px, rgba(111,214,255,.85), transparent),
+      radial-gradient(1.5px 1.5px at 260px 220px, rgba(255,255,255,.9), transparent);
+    background-size:340px 260px;
+    animation:twinkle 5s ease-in-out infinite alternate;
+  }
+  .stars2{
+    background-image:
+      radial-gradient(1px 1px at 60px 60px, rgba(255,255,255,.5), transparent),
+      radial-gradient(1px 1px at 180px 150px, rgba(255,143,186,.5), transparent),
+      radial-gradient(1px 1px at 290px 70px, rgba(111,214,255,.5), transparent);
+    background-size:420px 320px;
+    animation:twinkle 7s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes twinkle{from{opacity:.55}to{opacity:1}}
+
+  nav, .hero, section, .register-outer, footer{position:relative;z-index:1}
+
+  /* ============ NAV ============ */
+  nav{
+    position:sticky;top:0;z-index:60;
+    background:rgba(14,11,34,.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 30px;
+  }
+  .wordmark{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .patch-mini{
+    width:34px;height:34px;flex:none;border-radius:50%;
+    background:var(--space-2);
+    border:2px solid var(--gold);
+    box-shadow:0 0 0 2px var(--space), 0 0 0 3px var(--blue);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold);font-size:14px;
+  }
+  .wordmark span{
+    font-family:var(--display);font-size:.85rem;color:var(--text);
+    letter-spacing:.08em;
+  }
+  .nav-links{display:flex;gap:24px;align-items:center}
+  .nav-links a{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;
+    text-transform:uppercase;text-decoration:none;color:var(--dim);
+  }
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--gold)}
+  .nav-cta{
+    background:var(--gold);color:var(--space)!important;
+    padding:8px 18px;border-radius:4px;font-weight:700;
+  }
+  .nav-cta:hover{background:var(--gold-soft)}
+
+  /* ============ HERO ============ */
+  .hero{
+    max-width:1120px;margin:0 auto;
+    padding:76px 28px 90px;
+    display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;
+  }
+  .mission-tag{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--gold);
+    display:flex;align-items:center;gap:12px;margin-bottom:24px;
+  }
+  .mission-tag::before{content:'';width:36px;height:1px;background:var(--gold)}
+  h1{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(1.9rem,4.6vw,3.3rem);
+    line-height:1.18;color:#fff;
+    letter-spacing:.01em;
+  }
+  h1 .gold{color:var(--gold)}
+  .hero p.lede{
+    margin:26px 0 34px;max-width:34rem;
+    font-size:1.05rem;color:var(--dim);
+  }
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .btn{
+    font-family:var(--mono);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
+    text-decoration:none;padding:14px 26px;display:inline-block;
+    border-radius:4px;font-weight:700;
+    transition:transform .12s, background .15s, border-color .15s, color .15s;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-gold{background:var(--gold);color:var(--space)}
+  .btn-gold:hover{background:var(--gold-soft)}
+  .btn-ghost{border:1px solid var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--blue-bright);color:var(--blue-bright)}
+  .hero-meta{
+    margin-top:38px;display:flex;gap:0;flex-wrap:wrap;
+  }
+  .hero-meta div{
+    font-family:var(--mono);font-size:.74rem;color:var(--dim);
+    padding:4px 26px;border-left:1px solid var(--line);
+  }
+  .hero-meta div:first-child{border-left:none;padding-left:0}
+  .hero-meta b{display:block;font-size:.95rem;color:#fff;font-weight:700}
+
+  /* mission patch */
+  .hero-visual{position:relative;display:flex;flex-direction:column;align-items:center;gap:44px}
+  .patch{
+    width:280px;height:280px;border-radius:50%;position:relative;flex:none;
+    background:
+      radial-gradient(circle at 32% 28%, #241A52, var(--space-2) 65%);
+    border:3px solid var(--gold);
+    box-shadow:
+      0 0 0 5px var(--space),
+      0 0 0 8px var(--blue),
+      0 0 60px rgba(124,92,255,.5);
+    display:flex;align-items:center;justify-content:center;
+    animation:drift 7s ease-in-out infinite;
+  }
+  @keyframes drift{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
+  .patch svg{width:100%;height:100%;display:block}
+
+  /* floating cards around the patch */
+  .float-card{
+    position:absolute;width:74px;height:106px;border-radius:8px;
+    background:var(--card);color:var(--space);
+    box-shadow:0 14px 34px rgba(0,0,0,.55);
+    padding:8px 9px;font-weight:700;
+    border:1px solid rgba(0,0,0,.2);
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .float-card .r{font-size:1.05rem;line-height:1}
+  .float-card .s{font-size:.9rem;line-height:1}
+  .float-card .c{align-self:center;font-size:1.7rem}
+  .float-card.red{color:var(--red)}
+  .fc1{top:-16px;left:-8px;transform:rotate(-14deg);animation:drift 6s ease-in-out infinite reverse}
+  .fc2{bottom:-6px;right:-14px;transform:rotate(11deg);animation:drift 8s ease-in-out infinite}
+
+  /* telemetry console */
+  .telemetry{
+    width:100%;
+    background:rgba(16,12,38,.92);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.5);
+  }
+  .tm-head{
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    padding:10px 16px;border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--dim);background:rgba(124,92,255,.12);
+  }
+  .tm-head .live{color:var(--gold)}
+  .tm-head .live::before{
+    content:'';display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--gold);margin-right:7px;
+    animation:blink 1.4s steps(2) infinite;
+  }
+  @keyframes blink{50%{opacity:.25}}
+  .tm-body{
+    padding:16px 18px;min-height:196px;
+    font-family:var(--mono);font-size:.74rem;line-height:1.95;
+  }
+  .tm-body .ln{opacity:0;transition:opacity .3s}
+  .tm-body .ln.on{opacity:1}
+  .t-a{color:var(--gold)}
+  .t-b{color:var(--blue-bright)}
+  .t-dim{color:var(--dim)}
+  .t-win{color:#6FE09A}
+
+  /* ============ SECTIONS ============ */
+  section{max-width:1120px;margin:0 auto;padding:88px 28px 6px}
+  .phase{
+    display:flex;align-items:center;gap:16px;margin-bottom:20px;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;
+  }
+  .phase .k{
+    color:var(--space);background:var(--gold);
+    padding:5px 14px;border-radius:3px;font-weight:700;
+  }
+  .phase .p-name{color:var(--blue-bright)}
+  .phase::after{content:'';flex:1;height:1px;background:var(--line)}
+  h2{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(1.4rem,2.9vw,2.1rem);color:#fff;
+    margin-bottom:18px;line-height:1.3;
+  }
+  .section-lede{max-width:44rem;color:var(--dim);font-size:1.02rem}
+
+  /* modules (about) */
+  .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+  .module{
+    border:1px solid var(--line);border-radius:12px;
+    padding:26px 24px;background:rgba(38,28,84,.35);
+    position:relative;overflow:hidden;
+  }
+  .module::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--gold),transparent 70%);
+  }
+  .module .mod-id{
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;
+    color:var(--dim);margin-bottom:14px;text-transform:uppercase;
+  }
+  .module h3{font-size:1.02rem;font-weight:700;color:#fff;margin-bottom:8px}
+  .module p{font-size:.92rem;color:var(--dim)}
+
+  /* trajectory (schedule) */
+  .trajectory{margin-top:46px;position:relative;padding-left:36px}
+  .trajectory::before{
+    content:'';position:absolute;left:11px;top:8px;bottom:8px;width:0;
+    border-left:2px dashed rgba(255,111,165,.5);
+  }
+  .burn{position:relative;padding:0 0 42px 22px}
+  .burn:last-child{padding-bottom:0}
+  .burn::before{
+    content:'';position:absolute;left:-33px;top:4px;
+    width:16px;height:16px;border-radius:50%;
+    background:var(--space);
+    border:3px solid var(--gold);
+    box-shadow:0 0 14px rgba(255,111,165,.55);
+  }
+  .burn .when{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+  .burn h3{font-size:1.1rem;font-weight:700;color:#fff;margin:6px 0 6px}
+  .burn p{max-width:44rem;font-size:.95rem;color:var(--dim)}
+
+  /* payload (prizes) */
+  .pot{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+  .payload{
+    border:1px solid var(--line);border-radius:12px;
+    padding:32px 24px;text-align:center;
+    background:rgba(38,28,84,.35);
+  }
+  .payload.first{
+    border-color:rgba(255,111,165,.6);
+    background:linear-gradient(180deg, rgba(255,111,165,.1), rgba(38,28,84,.35));
+    box-shadow:0 0 40px rgba(255,111,165,.12);
+  }
+  .payload .place{
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--dim);margin-bottom:12px;
+  }
+  .payload .amt{
+    font-family:var(--display);font-size:2rem;color:#fff;
+  }
+  .payload.first .amt{color:var(--gold)}
+  .payload p{font-size:.85rem;color:var(--dim);margin-top:10px}
+  .pot-note{
+    font-family:var(--mono);font-size:.72rem;color:var(--dim);
+    margin-top:24px;letter-spacing:.06em;
+  }
+
+  /* flight rules */
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:20px 40px;margin-top:44px}
+  .rule{display:flex;gap:16px;align-items:flex-start}
+  .rule .pip{
+    flex:none;width:34px;height:34px;border-radius:8px;
+    background:rgba(124,92,255,.25);color:var(--gold);
+    border:1px solid rgba(111,214,255,.45);
+    display:flex;align-items:center;justify-content:center;font-size:.88rem;
+    font-family:var(--mono);
+  }
+  .rule p{font-size:.94rem;color:var(--dim)}
+  .rule b{color:#fff}
+
+  /* register — launch console */
+  .register-outer{max-width:820px;margin:96px auto 0;padding:0 28px}
+  .register-wrap{
+    border:1px solid rgba(255,111,165,.5);border-radius:16px;
+    background:
+      radial-gradient(500px 260px at 50% -30%, rgba(255,111,165,.14), transparent 70%),
+      rgba(24,17,56,.85);
+    text-align:center;padding:60px 36px 52px;
+    box-shadow:0 0 80px rgba(124,92,255,.3);
+  }
+  .countdown{
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+  }
+  .register-wrap h2{margin-bottom:16px}
+  .register-wrap p{max-width:34rem;margin:0 auto 34px;color:var(--dim)}
+  .fine{font-family:var(--mono);font-size:.7rem;color:var(--dim);margin-top:44px;letter-spacing:.08em}
+
+  footer{
+    margin-top:100px;border-top:1px solid var(--line);
+    padding:34px 30px;max-width:1120px;margin-left:auto;margin-right:auto;
+    display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:.72rem;color:var(--dim);letter-spacing:.05em;
+  }
+  footer a{color:var(--dim);text-decoration:none}
+  footer a:hover{color:var(--gold)}
+  .foot-links{display:flex;gap:22px}
+
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .tm-body .ln{transition:none}
+    .patch,.fc1,.fc2{animation:none}
+    .stars,.stars2{animation:none}
+    .tm-head .live::before{animation:none}
+  }
+  @media (max-width: 940px){
+    .hero{grid-template-columns:1fr;padding-top:56px;gap:52px}
+    .hero-visual{margin-top:6px}
+    .about-grid,.pot{grid-template-columns:1fr}
+    .rules{grid-template-columns:1fr}
+    .nav-links a:not(.nav-cta){display:none}
+    .hero-meta div{border-left:none;padding:4px 14px 4px 0}
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" aria-hidden="true"></div>
+<div class="stars2" aria-hidden="true"></div>
+
+<nav>
+  <a class="wordmark" href="#top">
+    <span class="patch-mini" aria-hidden="true">&#9733;</span>
+    <span>LA POKERBOTS</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about">Mission</a>
+    <a href="#format">Trajectory</a>
+    <a href="#prizes">Payload</a>
+    <a href="#rules">Flight Rules</a>
+    <a class="nav-cta" href="#register">Launch</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div>
+    <div class="mission-tag">UCLA &middot; Mission Fall 2026 &middot; Westwood Orbit</div>
+    <h1>Your bot goes up. <span class="gold">Only one comes back with the pot.</span></h1>
+    <p class="lede">
+      LA Pokerbots is UCLA's poker AI competition. Crews get four weeks to build a bot
+      that plays heads-up no-limit Texas Hold'em, then the bots are launched into a
+      tournament of hundreds of thousands of hands. No poker experience required —
+      and once your bot is on the pad, it flies alone.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="#register">Register your crew</a>
+      <a class="btn btn-ghost" href="#format">Flight plan</a>
+    </div>
+    <div class="hero-meta">
+      <div><b>OCT 5</b>Kickoff &amp; engine release</div>
+      <div><b>CREWS OF 1&ndash;4</b>Any UCLA student</div>
+      <div><b>NOV 14</b>Final orbit, live</div>
+    </div>
+  </div>
+
+  <div class="hero-visual" aria-hidden="true">
+    <div class="patch">
+      <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <path id="arcTop" d="M 42 140 A 98 98 0 0 1 238 140" fill="none"/>
+          <path id="arcBot" d="M 46 140 A 94 94 0 0 0 234 140" fill="none"/>
+        </defs>
+        <!-- ring text -->
+        <text font-family="Michroma, sans-serif" font-size="15" fill="#FF6FA5" letter-spacing="4">
+          <textPath href="#arcTop" startOffset="50%" text-anchor="middle">LA POKERBOTS</textPath>
+        </text>
+        <text font-family="Space Mono, monospace" font-size="12" fill="#6FD6FF" letter-spacing="6">
+          <textPath href="#arcBot" startOffset="50%" text-anchor="middle">UCLA &#183; FALL 2026</textPath>
+        </text>
+        <!-- orbit ellipse -->
+        <ellipse cx="140" cy="150" rx="72" ry="26" fill="none" stroke="#7C5CFF" stroke-width="1.5" stroke-dasharray="5 5" transform="rotate(-18 140 150)"/>
+        <!-- planet chip -->
+        <circle cx="140" cy="152" r="34" fill="#FF6FA5"/>
+        <circle cx="140" cy="152" r="34" fill="none" stroke="#1A1440" stroke-width="2" stroke-dasharray="7 5"/>
+        <circle cx="140" cy="152" r="25" fill="none" stroke="#1A1440" stroke-width="1.6"/>
+        <text x="140" y="158" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="17" fill="#1A1440">&#9824;</text>
+        <!-- rocket on the orbit -->
+        <g transform="rotate(-18 140 150) translate(212 150) rotate(90)">
+          <path d="M0 -11 L5 2 L2.5 2 L2.5 7 L-2.5 7 L-2.5 2 L-5 2 Z" fill="#F4F1E4" stroke="#1A1440" stroke-width="1"/>
+          <path d="M-2.5 7 L0 12 L2.5 7 Z" fill="#E0574F"/>
+        </g>
+        <!-- small stars -->
+        <text x="72" y="110" font-size="10" fill="#F4F1E4">&#10022;</text>
+        <text x="206" y="100" font-size="8" fill="#F4F1E4">&#10022;</text>
+        <text x="88" y="206" font-size="8" fill="#F4F1E4">&#10022;</text>
+        <text x="196" y="212" font-size="10" fill="#FF6FA5">&#10022;</text>
+      </svg>
+      <div class="float-card fc1">
+        <div><div class="r">A</div><div class="s">&#9824;</div></div>
+        <div class="c">&#9824;</div>
+      </div>
+      <div class="float-card fc2 red">
+        <div><div class="r">K</div><div class="s">&#9829;</div></div>
+        <div class="c">&#9829;</div>
+      </div>
+    </div>
+
+    <div class="telemetry">
+      <div class="tm-head">
+        <span class="live">Live telemetry</span>
+        <span>Hand 48,201 / 500,000</span>
+      </div>
+      <div class="tm-body" id="handlog"></div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="phase"><span class="k">Phase 01</span><span class="p-name">The Mission</span></div>
+  <h2>For people who'd rather out-code the table than outplay it.</h2>
+  <p class="section-lede">
+    Modeled on MIT Pokerbots, our tournament sits where game theory, probability, and
+    systems engineering meet. You'll write a program that decides — in milliseconds,
+    under a strict compute budget — whether to fold, call, or burn the whole stack on
+    a bluff.
+  </p>
+  <div class="about-grid">
+    <div class="module">
+      <div class="mod-id">Module A &middot; Hardware</div>
+      <h3>We supply the launch vehicle</h3>
+      <p>A ready-made game engine, starter bots, and a local scrimmage harness in Python, C++, or Java. You focus entirely on the guidance system: strategy.</p>
+    </div>
+    <div class="module">
+      <div class="mod-id">Module B &middot; Training</div>
+      <h3>Weekly flight school</h3>
+      <p>Workshops on hand equity, Monte Carlo simulation, CFR and game-theory-optimal play, and opponent modeling — from ground crew to mission commander.</p>
+    </div>
+    <div class="module">
+      <div class="mod-id">Module C &middot; Ops</div>
+      <h3>Nightly orbital scrimmages</h3>
+      <p>Submit your bot any evening and wake up to a fresh leaderboard, full hand histories, and telemetry against every crew's latest build.</p>
+    </div>
+  </div>
+</section>
+
+<section id="format">
+  <div class="phase"><span class="k">Phase 02</span><span class="p-name">Trajectory</span></div>
+  <h2>Four weeks from ignition to final orbit.</h2>
+  <div class="trajectory">
+    <div class="burn">
+      <div class="when">T&minus;40 days &middot; Mon Oct 5</div>
+      <h3>Ignition: kickoff night</h3>
+      <p>Engine release, rules walkthrough, crew formation mixer, and a crash course in poker fundamentals. Food provided. Boelter Hall, 7 PM.</p>
+    </div>
+    <div class="burn">
+      <div class="when">Oct 6 &ndash; Nov 6</div>
+      <h3>Burn phase: build &amp; scrimmage</h3>
+      <p>Iterate on your bot with nightly round-robin scrimmages against the field. Weekly workshops cover equity math, GTO concepts, and exploitative modeling.</p>
+    </div>
+    <div class="burn">
+      <div class="when">Sat Nov 7</div>
+      <h3>Orbital insertion: the qualifier</h3>
+      <p>Every bot flies a massive round-robin — 10,000 hands per matchup. The top 8 crews by total chips dock at the finals bracket.</p>
+    </div>
+    <div class="burn">
+      <div class="when">Sat Nov 14</div>
+      <h3>Final orbit: live finals</h3>
+      <p>Single-elimination bracket on the big screen with live commentary, hand-by-hand visualizations, and the trophy presentation at splashdown.</p>
+    </div>
+  </div>
+</section>
+
+<section id="prizes">
+  <div class="phase"><span class="k">Phase 03</span><span class="p-name">Payload</span></div>
+  <h2>The pot, cleared for re-entry.</h2>
+  <div class="pot">
+    <div class="payload first">
+      <div class="place">First place</div>
+      <div class="amt">$2,500</div>
+      <p>Plus the LA Pokerbots trophy and a permanent spot on the club leaderboard.</p>
+    </div>
+    <div class="payload">
+      <div class="place">Second place</div>
+      <div class="amt">$1,000</div>
+      <p>Runner-up at the final table.</p>
+    </div>
+    <div class="payload">
+      <div class="place">Third &amp; fourth</div>
+      <div class="amt">$500</div>
+      <p>Each, for the semifinalists.</p>
+    </div>
+  </div>
+  <p class="pot-note">// Prize pool subject to sponsorship. Companies wanting a mission patch: sponsors@lapokerbots.com</p>
+</section>
+
+<section id="rules">
+  <div class="phase"><span class="k">Phase 04</span><span class="p-name">Flight Rules</span></div>
+  <h2>Read before ignition.</h2>
+  <div class="rules">
+    <div class="rule"><div class="pip">01</div><p><b>Eligibility.</b> Open to all currently enrolled UCLA students, any major, any year. Crews of one to four.</p></div>
+    <div class="rule"><div class="pip">02</div><p><b>Autonomy.</b> Bots fly solo. No human input, no network calls, no phoning mission control once the cards are dealt.</p></div>
+    <div class="rule"><div class="pip">03</div><p><b>Compute budget.</b> Each bot gets a fixed time bank per match and capped memory. Blow the clock and the engine folds for you.</p></div>
+    <div class="rule"><div class="pip">04</div><p><b>Languages.</b> Python, C++, and Java are officially supported. Anything that compiles in our container is fair game with approval.</p></div>
+    <div class="rule"><div class="pip">05</div><p><b>Your code, your work.</b> Open-source libraries are fine with attribution. Submitting another crew's bot or a paid solver scrubs your launch permanently.</p></div>
+    <div class="rule"><div class="pip">06</div><p><b>Good sportsmanship.</b> Trash talk belongs in the Discord, kept friendly. Exploits against the engine itself get patched, not rewarded.</p></div>
+  </div>
+</section>
+
+<div class="register-outer" id="register">
+  <div class="register-wrap">
+    <div class="countdown">T&minus;minus: registration open</div>
+    <h2>All systems go. Board the rocket.</h2>
+    <p>
+      Registration for the Fall 2026 mission is open now. Sign up solo and we'll
+      assign you to a crew at kickoff, or bring your own crew of up to four.
+    </p>
+    <div class="cta-row" style="justify-content:center">
+      <a class="btn btn-gold" href="#">Register your crew</a>
+      <a class="btn btn-ghost" href="#">Join the Discord</a>
+    </div>
+    <p class="fine">Registration closes Oct 4, 11:59 PM PT &middot; Mission control: team@lapokerbots.com</p>
+  </div>
+</div>
+
+<footer>
+  <div>&copy; 2026 LA Pokerbots &middot; a student organization at UCLA &middot; Westwood, Earth</div>
+  <div class="foot-links">
+    <a href="#">Discord</a>
+    <a href="#">Instagram</a>
+    <a href="#">GitHub</a>
+    <a href="mailto:team@lapokerbots.com">Email</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var lines = [
+    '<span class="t-dim">[00:00.00] --- HAND 48,201 --- blinds 50/100 ---</span>',
+    '<span class="t-a">BRUIN_ONE</span> <span class="t-dim">dealt</span> A&#9824; K&#9829;',
+    '<span class="t-b">APOLLO_SHOVE</span> <span class="t-dim">posts big blind 100</span>',
+    '<span class="t-a">BRUIN_ONE</span> raises to 300',
+    '<span class="t-b">APOLLO_SHOVE</span> re-raises to 950',
+    '<span class="t-a">BRUIN_ONE</span> calls <span class="t-dim">(equity 0.61 &middot; 4ms)</span>',
+    '<span class="t-dim">FLOP:</span> A&#9829; 7&#9827; 2&#9830;',
+    '<span class="t-b">APOLLO_SHOVE</span> shoves all-in 4,050',
+    '<span class="t-a">BRUIN_ONE</span> calls',
+    '<span class="t-win">&gt;&gt; BRUIN_ONE wins pot of 10,000 &middot; pair of aces &middot; splashdown confirmed</span>'
+  ];
+  var log = document.getElementById('handlog');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  lines.forEach(function(html){
+    var d = document.createElement('div');
+    d.className = 'ln';
+    d.innerHTML = html;
+    log.appendChild(d);
+  });
+  var els = log.querySelectorAll('.ln');
+
+  if (reduced) {
+    els.forEach(function(el){ el.classList.add('on'); });
+    return;
+  }
+
+  var i = 0;
+  function step(){
+    if (i < els.length) {
+      els[i].classList.add('on');
+      i++;
+      setTimeout(step, 620);
+    } else {
+      setTimeout(function(){
+        els.forEach(function(el){ el.classList.remove('on'); });
+        i = 0;
+        setTimeout(step, 700);
+      }, 3800);
+    }
+  }
+  setTimeout(step, 500);
+})();
+</script>
+
+</body>
+</html>
