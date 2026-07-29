@@ -308,23 +308,21 @@
   .rule p{font-size:.94rem;color:var(--dim)}
   .rule b{color:#fff}
 
-  /* register — launch console */
+  /* register — luma embed */
   .register-outer{max-width:820px;margin:96px auto 0;padding:0 28px}
-  .register-wrap{
-    border:1px solid rgba(255,111,165,.5);border-radius:16px;
-    background:
-      radial-gradient(500px 260px at 50% -30%, rgba(255,111,165,.14), transparent 70%),
-      rgba(24,17,56,.85);
-    text-align:center;padding:60px 36px 52px;
+  .luma-embed-wrap{
+    display:flex;justify-content:center;
+    border-radius:16px;
     box-shadow:0 0 80px rgba(124,92,255,.3);
   }
-  .countdown{
-    font-family:var(--mono);font-size:.78rem;letter-spacing:.3em;
-    text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+  .luma-embed{
+    width:100%;max-width:760px;height:480px;
+    border:1px solid rgba(255,111,165,.5);border-radius:16px;
+    background:rgba(24,17,56,.85);
   }
-  .register-wrap h2{margin-bottom:16px}
-  .register-wrap p{max-width:34rem;margin:0 auto 34px;color:var(--dim)}
-  .fine{font-family:var(--mono);font-size:.7rem;color:var(--dim);margin-top:44px;letter-spacing:.08em}
+  @media (max-width:600px){
+    .luma-embed{height:620px}
+  }
 
   footer{
     margin-top:100px;border-top:1px solid var(--line);
@@ -539,18 +537,16 @@
 </section>
 
 <div class="register-outer" id="register">
-  <div class="register-wrap">
-    <div class="countdown">T&minus;minus: registration open</div>
-    <h2>All systems go. Board the rocket.</h2>
-    <p>
-      Registration for the Fall 2026 mission is open now. Sign up solo and we'll
-      assign you to a crew at kickoff, or bring your own crew of up to four.
-    </p>
-    <div class="cta-row" style="justify-content:center">
-      <a class="btn btn-gold" href="#">Register your crew</a>
-      <a class="btn btn-ghost" href="#">Join the Discord</a>
-    </div>
-    <p class="fine">Registration closes Oct 4, 11:59 PM PT &middot; Mission control: team@lapokerbots.com</p>
+  <div class="luma-embed-wrap">
+    <iframe
+      src="https://luma.com/embed/event/evt-3o3pNlXwpwP0JAy/simple"
+      class="luma-embed"
+      title="LA Pokerbots team registration on Luma"
+      frameborder="0"
+      allow="fullscreen; payment"
+      aria-hidden="false"
+      tabindex="0"
+    ></iframe>
   </div>
 </div>
 
