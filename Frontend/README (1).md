@@ -14,4 +14,4 @@ Then visit `http://127.0.0.1:4173`.
 
 Pages are split into `index.html`, `about.html`, `competition.html`, `sponsors.html`, and `join.html`. Shared presentation and navigation behavior live in `styles.css` and `site.js`.
 
-Sponsor placeholders are in `sponsors.html`. All application buttons use the existing Luma event URL.
+Sponsor placeholders are in `sponsors.html`. Competitor registration uses the existing Luma event, including the live embed on `about.html`. The separate `join.html` page is for organizing-team applications and currently has a disabled placeholder for the future Google Form.
