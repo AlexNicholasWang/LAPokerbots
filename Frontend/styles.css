@@ -786,3 +786,74 @@ footer {
   object-fit: contain;
   border-radius: 50%;
 }
+
+.ticker {
+  position: relative;
+  padding: 20px 0;
+  background: #0b0b0f;
+}
+
+/* Continuous line connecting every sponsor card */
+.ticker::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--blue),
+    var(--pink) 24%,
+    var(--pink) 76%,
+    var(--blue)
+  );
+  box-shadow: 0 0 18px rgba(255, 93, 158, 0.42);
+}
+
+/* Keeps the cards above the connecting line */
+.ticker-track {
+  position: relative;
+  z-index: 1;
+  gap: 0;
+  padding: 0;
+  animation-duration: 28s;
+}
+
+/* Removes the old diamond separators */
+.ticker .diamond {
+  display: none;
+}
+
+/* Makes every sponsor card larger and evenly spaced */
+.ticker .sponsor-pill {
+  min-width: 196px;
+  height: 72px;
+  margin: 0 8px;
+  padding: 10px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  background: #13131a;
+  color: #a9a6af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Styling for confirmed sponsors such as OpenTrade */
+.ticker .sponsor-pill.confirmed {
+  background: #f7f5f2;
+  color: #17171c;
+  border-color: #f7f5f2;
+}
+
+.ticker .sponsor-pill.confirmed img {
+  width: 44px;
+  height: 44px;
+}
+
+/* Pauses scrolling when someone hovers over the sponsors */
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
