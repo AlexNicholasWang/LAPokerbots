@@ -18,3 +18,33 @@ if (joinCard) {
   joinCard.querySelector('h3').textContent = 'Join the team';
   joinCard.querySelector('p').textContent = 'Help organize LA Pokerbots, build the event, and support the competitor community.';
 }
+
+const firstSponsor = document.querySelector(
+  '.sponsor-grid .logo-placeholder'
+);
+
+if (firstSponsor) {
+  firstSponsor.classList.add('confirmed-sponsor');
+  firstSponsor.innerHTML = `
+    <div>
+      <img
+        src="assets/sponsors/opentrade.jpg"
+        alt="OpenTrade logo"
+      >
+      <strong>OpenTrade</strong>
+    </div>
+  `;
+}
+
+document.querySelectorAll('.ticker .sponsor-pill').forEach(pill => {
+  if (pill.textContent.trim() === 'Sponsor 01') {
+    pill.classList.add('confirmed');
+    pill.innerHTML = `
+      <img
+        src="assets/sponsors/opentrade.jpg"
+        alt=""
+      >
+      <span>OpenTrade</span>
+    `;
+  }
+});

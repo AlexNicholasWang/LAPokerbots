@@ -749,3 +749,40 @@ footer {
   border-left: 0;
   border-right: 0;
 }
+
+.confirmed-sponsor {
+  background: #f7f5f2;
+  color: #17171c;
+}
+
+.confirmed-sponsor img {
+  display: block;
+  width: 112px;
+  height: 112px;
+  object-fit: contain;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+}
+
+.confirmed-sponsor strong {
+  display: block;
+  font: 700 0.78rem var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.sponsor-pill.confirmed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #f7f5f2;
+  color: #17171c;
+}
+
+.sponsor-pill.confirmed img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 50%;
+}
