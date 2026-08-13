@@ -1,0 +1,144 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Site design tokens — ported from the original styles.css :root block. */
+@theme {
+  --color-ink: #07070a;
+  --color-panel: #0d0d12;
+  --color-soft: #13131a;
+  --color-bone: #f7f5f2;
+  --color-dim: #9a98a0;
+  --color-fog: #b9b6bf;
+  --color-pink: #ff5d9e;
+  --color-blue: #7670ff;
+  --color-line: rgb(255 255 255 / 0.1);
+
+  --text-display: clamp(4rem, 10vw, 8.7rem);
+  --text-page: clamp(3.5rem, 8vw, 7.6rem);
+  --text-section: clamp(2.4rem, 5vw, 4.8rem);
+  --text-panel: clamp(2.8rem, 5vw, 5rem);
+  --text-num-lg: clamp(2.8rem, 5vw, 4.5rem);
+  --text-num-md: clamp(2.4rem, 5vw, 4.3rem);
+  --text-num-sm: clamp(2.1rem, 4vw, 3.4rem);
+
+  /* The original stylesheet breaks at 800px and 480px, not Tailwind's defaults. */
+  --breakpoint-xs: 480px;
+  --breakpoint-mid: 800px;
+
+  --animate-marquee: marquee 28s linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Shadcn's semantic tokens, aliased onto the palette above. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-sans);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* The site is dark-only; there is no light palette to fall back to. */
+:root {
+  --font-sans: var(--font-dm-sans), sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
+
+  --background: #07070a;
+  --foreground: #f7f5f2;
+  --card: #0d0d12;
+  --card-foreground: #f7f5f2;
+  --popover: #0d0d12;
+  --popover-foreground: #f7f5f2;
+  --primary: #ff5d9e;
+  --primary-foreground: #07070a;
+  --secondary: #13131a;
+  --secondary-foreground: #f7f5f2;
+  --muted: #13131a;
+  --muted-foreground: #9a98a0;
+  --accent: #13131a;
+  --accent-foreground: #f7f5f2;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgb(255 255 255 / 0.1);
+  --input: rgb(255 255 255 / 0.15);
+  --ring: #ff5d9e;
+  --radius: 0rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    overflow-x: hidden;
+  }
+  body {
+    @apply min-h-screen bg-ink font-sans text-bone;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--color-pink);
+    color: var(--color-ink);
+  }
+}
+
+/* Fixed 80px grid, fading out down the page. */
+@utility grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: linear-gradient(to bottom, #000, transparent 76%);
+}
+
+/* Centred column: 48px gutters, tightening to 30px on small screens. */
+@utility wrap {
+  width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
+
+  @media (width < 800px) {
+    width: min(100% - 30px, 1180px);
+  }
+}
+
+/* Breaks a child out of .wrap to the full viewport width. */
+@utility full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
