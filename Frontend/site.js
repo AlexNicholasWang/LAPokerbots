@@ -28,10 +28,9 @@ if (firstSponsor) {
   firstSponsor.innerHTML = `
     <div>
       <img
-        src="assets/sponsors/opentrade.jpg"
-        alt="OpenTrade logo"
+        src="assets/sponsors/jane-street.png"
+        alt="Jane Street logo"
       >
-      <strong>OpenTrade</strong>
     </div>
   `;
 }
@@ -41,10 +40,9 @@ document.querySelectorAll('.ticker .sponsor-pill').forEach(pill => {
     pill.classList.add('confirmed');
     pill.innerHTML = `
       <img
-        src="assets/sponsors/opentrade.jpg"
-        alt=""
+        src="assets/sponsors/jane-street.png"
+        alt="Jane Street"
       >
-      <span>OpenTrade</span>
     `;
   }
 });

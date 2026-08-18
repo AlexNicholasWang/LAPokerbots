@@ -757,11 +757,10 @@ footer {
 
 .confirmed-sponsor img {
   display: block;
-  width: 112px;
-  height: 112px;
+  width: min(220px, 80%);
+  height: auto;
   object-fit: contain;
-  margin: 0 auto 10px;
-  border-radius: 50%;
+  margin: 0 auto;
 }
 
 .confirmed-sponsor strong {
@@ -841,7 +840,7 @@ footer {
   justify-content: center;
 }
 
-/* Styling for confirmed sponsors such as OpenTrade */
+/* Styling for confirmed sponsors such as Jane Street */
 .ticker .sponsor-pill.confirmed {
   background: #f7f5f2;
   color: #17171c;
@@ -849,8 +848,10 @@ footer {
 }
 
 .ticker .sponsor-pill.confirmed img {
-  width: 44px;
-  height: 44px;
+  height: 34px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
 }
 
 /* Pauses scrolling when someone hovers over the sponsors */
