@@ -40,7 +40,8 @@ document.querySelectorAll('.ticker .sponsor-pill').forEach(pill => {
     pill.classList.add('confirmed');
     pill.innerHTML = `
       <img
-        src="assets/sponsors/jane-street.png"
+        src="assets/sponsors/jane-street-ticker.png"
+        srcset="assets/sponsors/jane-street-ticker.png 1x, assets/sponsors/jane-street-ticker@2x.png 2x"
         alt="Jane Street"
       >
     `;
