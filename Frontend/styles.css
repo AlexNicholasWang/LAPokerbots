@@ -848,9 +848,9 @@ footer {
 }
 
 .ticker .sponsor-pill.confirmed img {
-  height: 34px;
+  height: 38px;
   width: auto;
-  max-width: 150px;
+  max-width: 160px;
   object-fit: contain;
 }
 
