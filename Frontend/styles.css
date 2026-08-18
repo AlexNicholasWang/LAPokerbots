@@ -779,13 +779,6 @@ footer {
   color: #17171c;
 }
 
-.sponsor-pill.confirmed img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  border-radius: 50%;
-}
-
 .ticker {
   position: relative;
   padding: 20px 0;
