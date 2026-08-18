@@ -41,7 +41,7 @@ document.querySelectorAll('.ticker .sponsor-pill').forEach(pill => {
     pill.innerHTML = `
       <img
         src="assets/sponsors/jane-street.png"
-        srcset="assets/sponsors/jane-street-ticker.png 1x, assets/sponsors/jane-street-ticker@2x.png 2x"
+        srcset="assets/sponsors/jane-street.png 1x, assets/sponsors/jane-street@2x.png 2x"
         alt="Jane Street"
       >
     `;
