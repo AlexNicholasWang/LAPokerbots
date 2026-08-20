@@ -74,7 +74,7 @@ export default function Home() {
                   01
                 </strong>
                 <span className="mt-2.5 block text-[0.9rem] text-dim">
-                  Weeks to turn game theory, probability, and code into a winning
+                  Week to turn game theory, probability, and code into a winning
                   player.
                 </span>
               </div>

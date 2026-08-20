@@ -8,7 +8,7 @@ import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "About | LA Pokerbots",
-  description: "About LA Pokerbots, UCLA's poker AI competition.",
+  description: "About LA Pokerbots, LA's poker AI competition.",
 };
 
 const stats = [

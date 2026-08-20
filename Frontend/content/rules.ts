@@ -3,7 +3,7 @@ export const rules = [
     num: "01",
     title: "Eligibility",
     detail:
-      "Open to currently enrolled undergraduate students from LA in teams of one to four.",
+      "Anyone. Teams of 1-4",
   },
   {
     num: "02",
