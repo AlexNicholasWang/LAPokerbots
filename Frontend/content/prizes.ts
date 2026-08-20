@@ -6,7 +6,7 @@ export const prizes = [
   },
   {
     place: "Second place",
-    amount: "$1000",
+    amount: "$1,000",
     detail: "Runner-up at the final table.",
   },
   {

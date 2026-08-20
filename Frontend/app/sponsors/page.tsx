@@ -23,8 +23,8 @@ export default function Sponsors() {
       <Section>
         <SectionHead
           eyebrow="Sponsors"
-          heading="Partner logos coming soon."
-          lede="These deliberately neutral placeholders can be replaced one-for-one when the sponsor roster is finalized."
+          heading="Our Partners."
+          lede="Thank you for your geneorsity"
         />
         <SponsorGrid />
       </Section>
