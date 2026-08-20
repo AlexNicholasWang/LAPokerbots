@@ -75,14 +75,14 @@ export default function Join() {
               Help design the competition, support participants, build tournament
               infrastructure, and grow our UCLA community.
             </p>
-              <Button asChild variant="apply" size="cta">
-    
+    <Button asChild variant="apply" size="cta">
+      <a
       href="https://forms.gle/6kf5s7wPwwiPQLm86"
       target="_blank"
       rel="noopener"
       >
       Apply to the team ↗
-    </a>
+      </a>
     </Button>
           </Reveal>
         </div>
