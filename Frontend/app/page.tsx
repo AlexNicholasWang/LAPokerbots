@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { CardGrid, type CardItem } from "@/components/card-grid";
 import { Rise } from "@/components/motion";
 import { Eyebrow, Section, SectionHead } from "@/components/section";
-import { SponsorTicker } from "@/components/sponsor-ticker";
 import { site } from "@/content/site";
 
 const cards: CardItem[] = [
@@ -83,8 +82,6 @@ export default function Home() {
           </div>
         </div>
       </header>
-
-      <SponsorTicker />
 
       <Section>
         <SectionHead

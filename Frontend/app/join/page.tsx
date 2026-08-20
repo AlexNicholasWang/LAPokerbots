@@ -15,7 +15,7 @@ const details = [
   { term: "Who", value: "Current UCLA students" },
   { term: "Work", value: "Events, engineering, design, and partnerships" },
   { term: "Experience", value: "Curiosity matters most" },
-  { term: "Application", value: "Google Form coming soon" },
+  { term: "Application", value: "Google Form - open now" },
 ];
 
 const cards: CardItem[] = [
@@ -75,12 +75,15 @@ export default function Join() {
               Help design the competition, support participants, build tournament
               infrastructure, and grow our UCLA community.
             </p>
-            <Button variant="apply" size="cta" disabled className="opacity-[0.62]">
-              Team application coming soon
-            </Button>
-            <div className="mt-[14px] font-mono text-[0.65rem] font-bold tracking-[0.1em] text-dim uppercase">
-              Google Form link will be added here
-            </div>
+              <Button asChild variant="apply" size="cta">
+    
+      href="https://forms.gle/6kf5s7wPwwiPQLm86"
+      target="_blank"
+      rel="noopener"
+      >
+      Apply to the team ↗
+    </a>
+    </Button>
           </Reveal>
         </div>
       </Section>
