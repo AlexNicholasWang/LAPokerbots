@@ -7,7 +7,7 @@ export type Sponsor = {
 export const sponsors: Sponsor[] = [
   { name: "Jane Street", logo: "/sponsors/jane-street.png" },
   { name: "Freeport Markets", logo: "/sponsors/freeport-markets.png" },
-  { name: "AXQ Capital", logo: "/sponsors/AXQ-capital.png" },
+  { name: "AXQ Capital", logo: "/sponsors/AXQ-Capital.png" },
 ];
 
 /** The grid always shows 8 tiles; unfilled ones render as placeholders. */
