@@ -7,12 +7,12 @@ import { site } from "@/content/site";
 const prizes = [
   { place: "1st place", amount: "$2,500" },
   { place: "2nd place", amount: "$1,000" },
-  { place: "3rd & 4th place", amount: "$500 each" },
+  { place: "3rd & 4th place", amount: "$500" },
 ] as const;
 
 const facts = [
   { value: "500K+", label: "Hands simulated" },
-  { value: "$4.5K", label: "Cash prizes" },
+  { value: "$5K", label: "Cash prizes" },
   { value: "1–4", label: "Students per team" },
 ] as const;
 
@@ -38,7 +38,7 @@ export default function Home() {
           </Rise>
           <Rise delay={0.16}>
             <p className="mt-7 font-mono text-[0.95rem] tracking-[0.06em] text-fog">
-              Jan 10–17, 2027 @ UCLA · Westwood, CA
+              Winter 2027 @ UCLA · Westwood, CA
             </p>
             <p className="mt-2 font-mono text-[0.78rem] tracking-[0.1em] text-dim uppercase">
               UCLA&apos;s poker AI competition
