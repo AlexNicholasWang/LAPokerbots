@@ -14,20 +14,14 @@ export function SponsorGrid() {
   return (
     <div className="full-bleed grid grid-cols-4 gap-px border-y border-line bg-line max-mid:grid-cols-2 max-xs:grid-cols-1">
       {sponsors.map((sponsor) => (
-        <div
-          key={sponsor.name}
-          className={`${tileClass} bg-bone text-[#17171c]`}
-        >
-          <div>
-            <Image
-              src={sponsor.logo}
-              alt={`${sponsor.name} logo`}
-              width={112}
-              height={112}
-              className="mx-auto mb-2.5 block size-28 rounded-full object-contain"
-            />
-            <strong className="block tracking-[0.1em]">{sponsor.name}</strong>
-          </div>
+        <div key={sponsor.name} className="relative h-[170px] bg-bone">
+          <Image
+            src={sponsor.logo}
+            alt={`${sponsor.name} logo`}
+            fill
+            sizes="(max-width: 800px) 50vw, 25vw"
+            className="object-contain p-8"
+          />
         </div>
       ))}
       {placeholders.map((label) => (

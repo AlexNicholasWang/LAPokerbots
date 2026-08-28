@@ -25,12 +25,15 @@ export function Eyebrow({
 export function Section({
   children,
   className,
+  id,
 }: {
   children: ReactNode;
   className?: string;
+  id?: string;
 }) {
   return (
     <section
+      id={id}
       className={cn("border-b border-line py-[90px] max-mid:py-[70px]", className)}
     >
       <div className="wrap">{children}</div>
