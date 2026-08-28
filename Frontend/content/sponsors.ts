@@ -6,6 +6,7 @@ export type Sponsor = {
 /** Confirmed sponsors. The sponsor grid reads from here. */
 export const sponsors: Sponsor[] = [
   { name: "Jane Street", logo: "/sponsors/jane-street.png" },
+  { name: "DRW", logo: "/sponsors/DRW.png"},
   { name: "AXQ Capital", logo: "/sponsors/AXQ-Capital.png" },
   { name: "Freeport Markets", logo: "/sponsors/freeport-markets.png" },
 ];
