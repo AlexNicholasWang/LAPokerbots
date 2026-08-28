@@ -61,7 +61,7 @@ export function SiteHeader() {
             <SheetTitle className="sr-only">Menu</SheetTitle>
             <div className="flex flex-col gap-5">
               {nav.map(({ href, label }) => (
-                
+                <a
                   key={href}
                   href={href}
                   onClick={() => setOpen(false)}

@@ -60,4 +60,72 @@ export default function Home() {
             UCLA. Teams of 1–4 program a completely autonomous pokerbot in
             Python, C++, or Java that competes against other bots across 500K+
             simulated hands. This free-to-enter competition is meant to engage
-            students in strategic AI — game theory,
+            students in strategic AI — game theory, probability, and code —
+            with the opportunity to win cash prizes!
+          </p>
+          <p>
+            The competition is open to everyone; no poker experience is
+            required, and starter bots plus workshops are provided. Competitors
+            get kickoff night on Jan 10, nightly scrimmages through Jan 15, a
+            qualifier round robin on Jan 16, and a live top-eight finals
+            bracket on Jan 17 — alongside recruiting attention from our
+            sponsors, which include leading quantitative trading firms.
+          </p>
+        </Reveal>
+      </Section>
+
+      <Section className="scroll-mt-6" id="prizes">
+        <SectionHead eyebrow="Prizes" heading="Prize money." />
+        <div className="grid grid-cols-3 gap-px border border-line bg-line text-center max-mid:grid-cols-1">
+          {prizes.map((prize) => (
+            <Reveal key={prize.place} className="bg-ink px-6 py-[54px]">
+              <Eyebrow className="text-dim">{prize.place}</Eyebrow>
+              <b className="text-num-md mt-4 block font-mono leading-none font-normal text-pink">
+                {prize.amount}
+              </b>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section className="scroll-mt-6" id="sponsors">
+        <SectionHead
+          eyebrow="Sponsors"
+          heading="2027 sponsors."
+          lede={`Interested in sponsoring? Send us an email at ${site.email}.`}
+        />
+        <SponsorGrid />
+      </Section>
+
+      <Section>
+        <SectionHead eyebrow="Fast facts" heading="By the numbers." />
+        <div className="grid grid-cols-3 gap-px border border-line bg-line text-center max-mid:grid-cols-1">
+          {facts.map((fact) => (
+            <Reveal key={fact.label} className="bg-ink px-6 py-[54px]">
+              <b className="text-num-md block font-mono leading-none font-normal text-pink">
+                {fact.value}
+              </b>
+              <Eyebrow className="mt-4 text-dim">{fact.label}</Eyebrow>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section className="scroll-mt-6 border-b-0" id="register">
+        <SectionHead
+          eyebrow="Register"
+          heading="Take your seat."
+          lede="Sign up as a competitor through Luma below."
+        />
+        <Reveal className="overflow-hidden border border-line bg-panel">
+          <iframe
+            src={site.luma}
+            title="LA Pokerbots competitor registration on Luma"
+            allow="fullscreen; payment"
+            className="block h-[620px] w-full border-0 max-mid:h-[700px]"
+          />
+        </Reveal>
+      </Section>
+    </>
+  );
+}
