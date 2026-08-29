@@ -6,9 +6,8 @@ import { site } from "@/content/site";
 
 const prizes = [
   { place: "1st place", amount: "$3,000" },
-  { place: "2nd place", amount: "$1,500" },
+  { place: "2nd place", amount: "$2,000" },
   { place: "3rd place", amount: "$1,000" },
-  {place: "4th place", amount: "$500"},
 ] as const;
 
 const facts = [
