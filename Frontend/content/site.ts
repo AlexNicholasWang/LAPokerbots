@@ -14,4 +14,5 @@ export const nav = [
   { href: "#prizes", label: "Prizes" },
   { href: "#sponsors", label: "Sponsors" },
   { href: "#register", label: "Register" },
+  { href: "#team", label: "Team" },
 ] as const;

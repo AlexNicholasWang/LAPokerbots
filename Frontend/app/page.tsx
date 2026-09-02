@@ -3,6 +3,7 @@ import { Reveal, Rise } from "@/components/motion";
 import { Eyebrow, Section, SectionHead } from "@/components/section";
 import { SponsorGrid } from "@/components/sponsor-grid";
 import { site } from "@/content/site";
+import Image from "next/image";
 
 const prizes = [
   { place: "1st place", amount: "$3,000" },
@@ -15,6 +16,21 @@ const facts = [
   { value: "$5K", label: "Cash prizes" },
   { value: "1–4", label: "Students per team" },
 ] as const;
+/**
+ * Organizing team. `photo` is a path under /public (e.g. "/team/alex.jpg");
+ * leave it out to show initials instead. `href` links the name (e.g. LinkedIn).
+ */
+const team: { name: string; role: string; photo?: string; href?: string }[] = [
+  { name: "Alexander Wang", role: "Founder", photo: "/team/alexander.jpg" },
+  { name: "Max Bregler", role: "Engine Engineer", photo: "/team/max.jpg" },
+];
+
+const initials = (name: string) =>
+  name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
 
 export default function Home() {
   return (
@@ -51,6 +67,51 @@ export default function Home() {
           </Rise>
         </div>
       </header>
+
+      <Section className="scroll-mt-6" id="team">
+        <SectionHead
+          eyebrow="Team"
+          heading="Meet the team!"
+          lede="The people behind LA Pokerbots."
+        />
+        {/* auto-fit: the grid stays balanced as more members are added. */}
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-px border border-line bg-line text-center">
+          {team.map((member) => (
+            <Reveal key={member.name} className="bg-ink px-6 py-[54px]">
+              <span className="relative mx-auto grid size-[104px] place-items-center rounded-full border-2 border-pink font-mono text-[1.25rem] font-bold tracking-[0.08em] shadow-[inset_0_0_0_8px_var(--color-ink),inset_0_0_0_10px_var(--color-blue)]">
+                {member.photo ? (
+                  <span className="absolute inset-[10px] overflow-hidden rounded-full">
+                    <Image
+                      src={member.photo}
+                      alt={member.name}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
+                  </span>
+                ) : (
+                  initials(member.name)
+                )}
+              </span>
+              <b className="mt-6 block text-[1.35rem] leading-tight font-medium tracking-[-0.03em]">
+                {member.href ? (
+                  
+                    href={member.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="no-underline hover:text-pink"
+                  >
+                    {member.name}
+                  </a>
+                ) : (
+                  member.name
+                )}
+              </b>
+              <Eyebrow className="mt-3 text-dim">{member.role}</Eyebrow>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
 
       <Section className="scroll-mt-6" id="about">
         <SectionHead eyebrow="About" heading="About LA Pokerbots." />
