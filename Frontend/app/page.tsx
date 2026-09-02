@@ -95,7 +95,7 @@ export default function Home() {
               </span>
               <b className="mt-6 block text-[1.35rem] leading-tight font-medium tracking-[-0.03em]">
                 {member.href ? (
-                  
+                  <a
                     href={member.href}
                     target="_blank"
                     rel="noreferrer"
