@@ -13,7 +13,7 @@ const prizes = [
 
 const facts = [
   { value: "500K+", label: "Hands simulated" },
-  { value: "$5K", label: "Cash prizes" },
+  { value: "$5K+", label: "Cash prizes" },
   { value: "1–4", label: "Students per team" },
 ] as const;
 /**
