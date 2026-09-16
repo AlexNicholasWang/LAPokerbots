@@ -1,0 +1,10 @@
+# Local environment configuration
+.env
+.env.local
+.venv/
+/.venv/
+venv/*
+venv/
+
+# Emacs stuff
+*~
