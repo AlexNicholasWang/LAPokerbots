@@ -3,6 +3,32 @@
 #include <time.h>
 #include <string.h>
 
+void parseCard(int cardNum, char card[2]){
+  // colors, R, Y, G, B
+  // for each color, 0123456789123456789SDRSDRW+
+  // S is skip, D is draw two, R is reverse, W is wild, + is wild draw four
+  int color = cardNum / 27;
+  if(color == 0){card[0] = 'R';}
+  else if(color == 1){card[0] = 'Y';}
+  else if(color == 2){card[0] = 'G';}
+  else if(color == 3){card[0] = 'B';}
+  int value = cardNum % 27;
+  if(value == 0){card[1] = '0';}
+  else if(value == 1 || value == 10){card[1] = '1';}
+  else if(value == 2 || value == 11){card[1] = '2';}
+  else if(value == 3 || value == 12){card[1] = '3';}
+  else if(value == 4 || value == 13){card[1] = '4';}
+  else if(value == 5 || value == 14){card[1] = '5';}
+  else if(value == 6 || value == 15){card[1] = '6';}
+  else if(value == 7 || value == 16){card[1] = '7';}
+  else if(value == 8 || value == 17){card[1] = '8';}
+  else if(value == 9 || value == 18){card[1] = '9';}
+  else if(value == 19 || value == 22){card[1] = 'S';}
+  else if(value == 20 || value == 23){card[1] = 'D';}
+  else if(value == 21 || value == 24){card[1] = 'R';}
+  else if(value == 25){card[1] = 'W';}
+  else if(value == 26){card[1] = '+';}
+}
 int main(int argc, char **argv){
   srand(time(NULL));
   int i, j, k;
@@ -11,7 +37,6 @@ int main(int argc, char **argv){
   for(i = 2; i < 2 + players; i++){
     strcpy(argv[i], algorithms[i - 2]);
   }
-  
   int bets[players][4];
   char commonCards[5][2];
   char playerCards[players][2][2];
@@ -25,15 +50,23 @@ int main(int argc, char **argv){
   for(i = 0; i < 108; i++){
     cards[i] = i;
   }
-  int card;
+  int cardNum = rand();
+  char card[2];
   for(i = 0; i < 5; i++){
-    card = rand() % 108;
-    
+    srand(cardNum);
+    cardNum = rand();
+    parseCard(cardNum % 108, card);
+    commonCards[i][0] = card[0];
+    commonCards[i][1] = cards[1];
   }
   int round;
   for(i = 0; i < players; i++){
     for(j = 0; j < 2; j++){
-      card = rand() % 108;
+      srand(cardNum);
+      cardNum = rand();
+      parseCard(cardNum % 108, card);
+      playerCards[i][j][0] = card[0];
+      playerCards[i][j][1] = cards[1];
     }
   }
   return(0);
