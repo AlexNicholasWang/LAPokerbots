@@ -1,29 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
-int main(){
-  srand(time(NULL)); // set random seed to time
+int main(int argc, char **argv){
+  srand(time(NULL));
   int i, j, k;
-  int bets[4][4]; // maximum 4 players, 4 betting rounds (pre 3 card, post 3 card, post 4 card, post 5 card)
-  char commonCards[5][2]; // common cards held in array in char array (e.g. G9 = Green Nine, W  = Wild, W4 = Wild Draw Four)
-  char playerCards[4][2][2]; // cards of individual players held in char array
-  // clearing bets
-  for(i = 0; i < 4; i++){
+  int players = argv[1][0] - 48;
+  char algorithms[players][32];
+  for(i = 2; i < 2 + players; i++){
+    strcpy(argv[i], algorithms[i - 2]);
+  }
+  
+  int bets[players][4];
+  char commonCards[5][2];
+  char playerCards[players][2][2];
+  
+  for(i = 0; i < players; i++){
     for(j = 0; j < 4; j++){
       bets[i][j] = 0;
     }
   }
-  int cards[108]; // array with all possible cards, in order Red, Blue, Green, Yellow within 0-9, Skip, Reverse, Draw Two, WIld, Wild Draw Four
+  int cards[108];
   for(i = 0; i < 108; i++){
     cards[i] = i;
   }
-  for(i = 0; i < 5; i++){ // set common cards
+  int card;
+  for(i = 0; i < 5; i++){
     card = rand() % 108;
     
   }
   int round;
-  for(i = 0; i < 4; i++){
-    for(j = 0; j < 2; j++){ // set individual cards
+  for(i = 0; i < players; i++){
+    for(j = 0; j < 2; j++){
       card = rand() % 108;
     }
   }
