@@ -59,7 +59,6 @@ int main(int argc, char **argv){
     commonCards[i][0] = card[0];
     commonCards[i][1] = cards[1];
   }
-  int round;
   for(i = 0; i < players; i++){
     for(j = 0; j < 2; j++){
       srand(cardNum);
