@@ -8,3 +8,6 @@ venv/
 
 # Emacs stuff
 *~
+
+# C stuff
+a.out
