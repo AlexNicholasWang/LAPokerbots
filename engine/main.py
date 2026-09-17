@@ -113,8 +113,9 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                 # run algorithm
                 if(bets[i][betRound] != -2 and bets[i][betRound] != -3):
                     try:
-                        f = open("out.txt", mode = 'r')
-                        betAmount = int(f.readline())
+                        '''f = open("out.txt", mode = 'r')
+                        betAmount = int(f.readline())'''
+                        betAmount = int(input(f"You are player {i}. what would you like to bet?\n"))
                         if(betAmount > playerBalances[i] or betAmount < 0):
                             for j in range(betRound, 4):
                                 bets[i][j] = -2
@@ -142,7 +143,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                             bets[i][j] = -2
                     print(bets)
                     os.remove("in.txt")
-                    #os.remove("out.txt")
+                    os.remove("out.txt")
                 betsDoneInRound += 1
                 if(betsDoneInRound >= 4):
                     currentBet = 0
