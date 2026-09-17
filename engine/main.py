@@ -128,10 +128,13 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
             print(bets)
             os.remove("in.txt")
             os.remove("out.txt")
+        if(betRound == 0):
+            cardsShown = 3
+        elif(betRound == 1):
+            cardsShown = 4
+        elif(betRound == 2):
             cardsShown = 5
-            betRound = 4
-            break
-
+        betRound += 1
     return(playerBalances)
 def main():
     playerCount = len(sys.argv) - 1
