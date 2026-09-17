@@ -83,7 +83,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
             ?? ?? ?? ?? ?? # common cards
             1000000 # your balance
             -1 -1 -1 -1 # current bets of players, -1 means hasnt betted yet, each row is a player
-            -1 -1 -1 -1
+            -1 -1 -1 -1 YOU # tells you which player you are
             -1 -1 -1 -1
             -1 -1 -1 -1
             1000000 999999 100000 50 # all players balances, in same order as rows of bets
@@ -91,15 +91,17 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
             for card in playerCards[i]:
                 f.write(f"{card} ")
             f.write("\n")
-            for i in range(0, cardsShown):
-                f.write(f"{commonCards[i]} ")
-            for i in range(cardsShown, 5):
+            for j in range(0, cardsShown):
+                f.write(f"{commonCards[j]} ")
+            for j in range(cardsShown, 5):
                 f.write(f"?? ")
             f.write("\n")
             f.write(f"{playerBalances[i]}\n")
-            for player in bets:
-                for bet in player:
+            for j in range(0, playerCount):
+                for bet in bets[i]:
                     f.write(f"{bet} ")
+                if(j == i):
+                    f.write("YOU ")
                 f.write("\n")
             for balance in playerBalances:
                 f.write(f"{balance} ")
