@@ -76,72 +76,88 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
     cardsShown = 0
     betRound = 0
     while(betRound < 4):
-        for i in range(0, playerCount):
-            f = open("in.txt", mode = 'w')
-            ''' example in.txt for pre-flop
-            G5 YD # your cards
-            ?? ?? ?? ?? ?? # common cards
-            1000000 # your balance
-            -1 -1 -1 -1 # current bets of players, -1 means hasnt betted yet, each row is a player
-            -1 -1 -1 -1 YOU # tells you which player you are
-            -1 -1 -1 -1
-            -1 -1 -1 -1
-            1000000 999999 100000 50 # all players balances, in same order as rows of bets
-            '''
-            for card in playerCards[i]:
-                f.write(f"{card} ")
-            f.write("\n")
-            for j in range(0, cardsShown):
-                f.write(f"{commonCards[j]} ")
-            for j in range(cardsShown, 5):
-                f.write(f"?? ")
-            f.write("\n")
-            f.write(f"{playerBalances[i]}\n")
-            for j in range(0, playerCount):
-                for bet in bets[i]:
-                    f.write(f"{bet} ")
-                if(j == i):
-                    f.write("YOU ")
+        isRoundGoing = True
+        betsDoneInRound = 0
+        while(isRoundGoing):
+            for i in range(0, playerCount):
+                f = open("in.txt", mode = 'w')
+                ''' example in.txt for pre-flop
+                G5 YD # your cards
+                ?? ?? ?? ?? ?? # common cards
+                1000000 # your balance
+                -1 -1 -1 -1 # current bets of players, -1 means hasnt betted yet, each row is a player
+                -1 -1 -1 -1 YOU # tells you which player you are
+                -1 -1 -1 -1
+                -1 -1 -1 -1
+                1000000 999999 100000 50 # all players balances, in same order as rows of bets
+                '''
+                for card in playerCards[i]:
+                    f.write(f"{card} ")
                 f.write("\n")
-            for balance in playerBalances:
-                f.write(f"{balance} ")
-            f.write("\n")
-            f.close()
-            # run algorithm
-            if(bets[i][betRound] != -2 and bets[i][betRound] != -3):
-                try:
-                    f = open("out.txt", mode = 'r')
-                    betAmount = int(f.readline())
-                    if(i == 1 and betRound == 0):
-                        betAmount = 100
-                    if(betAmount > playerBalances[i] or betAmount < 0):
+                for j in range(0, cardsShown):
+                    f.write(f"{commonCards[j]} ")
+                for j in range(cardsShown, 5):
+                    f.write(f"?? ")
+                f.write("\n")
+                f.write(f"{playerBalances[i]}\n")
+                for j in range(0, playerCount):
+                    for bet in bets[i]:
+                        f.write(f"{bet} ")
+                    if(j == i):
+                        f.write("YOU ")
+                    f.write("\n")
+                for balance in playerBalances:
+                    f.write(f"{balance} ")
+                f.write("\n")
+                f.close()
+                # run algorithm
+                if(bets[i][betRound] != -2 and bets[i][betRound] != -3):
+                    try:
+                        f = open("out.txt", mode = 'r')
+                        betAmount = int(f.readline())
+                        if(betAmount > playerBalances[i] or betAmount < 0):
+                            for j in range(betRound, 4):
+                                bets[i][j] = -2
+                            f.close()
+                            continue
+                        else:
+                            playerBalances[i] -= betAmount
+                            if(bets[i][betRound] >= 0):
+                                bets[i][betRound] += betAmount # if already betted, bet additional amount
+                            else:
+                                bets[i][betRound] = betAmount
+                        if(playerBalances[i] == 0):
+                            for j in range(betRound + 1, 4):
+                                bets[i][j] = -3 # -3 means all in
+                        for j in range(0, playerCount):
+                            if(bets[j][betRound] >= 0 and bets[j][betRound] > bets[i][betRound] and playerBalances[i] != 0):
+                                playerBalances[i] += bets[i][betRound]
+                                for k in range(betRound, 4):
+                                    bets[i][k] = -2
+                                break
+                        f.close()
+                    except Exception as e:
+                        print(e)
                         for j in range(betRound, 4):
                             bets[i][j] = -2
-                        f.close()
-                        continue
-                    else:
-                        playerBalances[i] -= betAmount
-                        if(bets[i][betRound] >= 0):
-                            bets[i][betRound] += betAmount # if already betted, bet additional amount
-                        else:
-                            bets[i][betRound] = betAmount
-                    if(playerBalances[i] == 0):
-                        for j in range(betRound + 1, 4):
-                            bets[i][j] = -3 # -3 means all in
-                    for j in range(0, playerCount):
-                        if(bets[j][betRound] >= 0 and bets[j][betRound] > bets[i][betRound] and playerBalances[i] != 0):
-                            playerBalances[i] += bets[i][betRound]
-                            for k in range(betRound, 4):
-                                bets[i][k] = -2
+                    print(bets)
+                    os.remove("in.txt")
+                    #os.remove("out.txt")
+                betsDoneInRound += 1
+                if(betsDoneInRound >= 4):
+                    currentBet = 0
+                    areAllSame = True
+                    for i in range(0, playerCount):
+                        if(bets[i][betRound] >= 0 and bets[i][betRound] != playerBalances[i]):
+                            currentBet = bets[i][betRound]
                             break
-                    f.close()
-                except Exception as e:
-                    print(e)
-                    for j in range(betRound, 4):
-                        bets[i][j] = -2
-                print(bets)
-                os.remove("in.txt")
-                #os.remove("out.txt")
+                    for i in range(0, playerCount):
+                        if(bets[i][betRound] >= 0 and bets[i][betRound] != playerBalances[i]):
+                            if(bets[i][betRound] != currentBet):
+                                areAllSame = False
+                    if(areAllSame == True):
+                        isRoundGoing = False
+                        break
         if(betRound == 0):
             cardsShown = 3
         elif(betRound == 1):
