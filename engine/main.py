@@ -48,7 +48,7 @@ def parseCard(cardNum):
         card += '+'
     return(card)
 
-def runRound(playerCount):
+def runRound(playerCount, playerBalances):
     bets = []
     for i in range(0, playerCount):
         bets.append([-1,-1,-1,-1])
@@ -72,12 +72,48 @@ def runRound(playerCount):
             currentPlayerCards.append(parseCard(cardNum))
             cardNums.remove(cardNum)
         playerCards.append(currentPlayerCards)
+    cardsShown = 0
+    while(cardsShown < 5):
+        for i in range(0, playerCount):
+            f = open("in.txt", mode = 'w')
+            ''' example in.txt for pre-flop
+            G5 YD # your cards
+            ?? ?? ?? ?? ?? # common cards
+            1000000 # your balance
+            -1 -1 -1 -1 # current bets of players, -1 means hasnt betted yet, each row is a player
+            -1 -1 -1 -1
+            -1 -1 -1 -1
+            -1 -1 -1 -1
+            1000000 999999 100000 50 # all players balances, in same order as rows of bets
+            '''
+            for card in playerCards[i]:
+                f.write(f"{card} ")
+            f.write("\n")
+            for i in range(0, cardsShown):
+                f.write(f"{commonCards[i]} ")
+            for i in range(cardsShown, 5):
+                f.write(f"?? ")
+            f.write("\n")
+            f.write(f"{playerBalances[i]}\n")
+            for player in bets:
+                for bet in player:
+                    f.write(f"{bet} ")
+                f.write("\n")
+            for balance in playerBalances:
+                f.write(f"{balance} ")
+            f.write("\n")
+            f.close()
+            cardsShown = 5
+            break
+
+    return(playerBalances)
 def main():
     playerCount = len(sys.argv) - 1
+    playerBalances = [1000000] * playerCount
     playerAlgorithmFilePaths = []
     for i in range(0, playerCount):
         playerAlgorithmFilePaths.append(sys.argv[i + 1])
-    runRound(playerCount)
+    playerBalances = runRound(playerCount, playerBalances)
 
 if __name__ == "__main__":
     main()

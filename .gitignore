@@ -9,5 +9,6 @@ venv/
 # Emacs stuff
 *~
 
-# C stuff
-a.out
+# engine stuff
+in.txt
+out.txt
