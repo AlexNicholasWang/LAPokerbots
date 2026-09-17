@@ -108,26 +108,40 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
             f.write("\n")
             f.close()
             # run algorithm
-            try:
-                f = open("out.txt", mode = 'r')
-                betAmount = int(f.readline())
-                if(betAmount > playerBalances[i] or betAmount < 0):
+            if(bets[i][betRound] != -2 and bets[i][betRound] != -3):
+                try:
+                    f = open("out.txt", mode = 'r')
+                    betAmount = int(f.readline())
+                    if(i == 1 and betRound == 0):
+                        betAmount = 100
+                    if(betAmount > playerBalances[i] or betAmount < 0):
+                        for j in range(betRound, 4):
+                            bets[i][j] = -2
+                        f.close()
+                        continue
+                    else:
+                        playerBalances[i] -= betAmount
+                        if(bets[i][betRound] >= 0):
+                            bets[i][betRound] += betAmount # if already betted, bet additional amount
+                        else:
+                            bets[i][betRound] = betAmount
+                    if(playerBalances[i] == 0):
+                        for j in range(betRound + 1, 4):
+                            bets[i][j] = -3 # -3 means all in
+                    for j in range(0, playerCount):
+                        if(bets[j][betRound] >= 0 and bets[j][betRound] > bets[i][betRound] and playerBalances[i] != 0):
+                            playerBalances[i] += bets[i][betRound]
+                            for k in range(betRound, 4):
+                                bets[i][k] = -2
+                            break
+                    f.close()
+                except Exception as e:
+                    print(e)
                     for j in range(betRound, 4):
-                        bets[i][j] = -2 # -2 means folded
-                else:
-                    playerBalances[i] -= betAmount
-                    bets[i][betRound] = betAmount
-                if(playerBalances[i] == 0):
-                    for j in range(betRound + 1, 4):
-                        bets[i][j] = -3 # -3 means all in
-                f.close()
-            except Exception as e:
-                print(e)
-                for j in range(betRound, 4):
-                    bets[i][j] = -2
-            print(bets)
-            os.remove("in.txt")
-            os.remove("out.txt")
+                        bets[i][j] = -2
+                print(bets)
+                os.remove("in.txt")
+                #os.remove("out.txt")
         if(betRound == 0):
             cardsShown = 3
         elif(betRound == 1):
