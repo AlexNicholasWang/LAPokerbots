@@ -136,7 +136,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                                 for k in range(betRound, 4):
                                     bets[i][k] = -2
                                 break
-                        f.close()
+                        #f.close()
                     except Exception as e:
                         print(e)
                         for j in range(betRound, 4):
