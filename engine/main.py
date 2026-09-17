@@ -143,7 +143,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                             bets[i][j] = -2
                     print(bets)
                     os.remove("in.txt")
-                    os.remove("out.txt")
+                    #os.remove("out.txt")
                 betsDoneInRound += 1
                 if(betsDoneInRound >= 4):
                     currentBet = 0
