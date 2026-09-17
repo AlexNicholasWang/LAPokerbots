@@ -101,7 +101,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                 f.write("\n")
                 f.write(f"{playerBalances[i]}\n")
                 for j in range(0, playerCount):
-                    for bet in bets[i]:
+                    for bet in bets[j]:
                         f.write(f"{bet} ")
                     if(j == i):
                         f.write("YOU ")
