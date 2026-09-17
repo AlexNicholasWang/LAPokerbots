@@ -1,5 +1,6 @@
 import random
 import sys
+import os
 
 def parseCard(cardNum):
     # colors, R, Y, G, B
@@ -48,7 +49,7 @@ def parseCard(cardNum):
         card += '+'
     return(card)
 
-def runRound(playerCount, playerBalances):
+def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
     bets = []
     for i in range(0, playerCount):
         bets.append([-1,-1,-1,-1])
@@ -73,7 +74,8 @@ def runRound(playerCount, playerBalances):
             cardNums.remove(cardNum)
         playerCards.append(currentPlayerCards)
     cardsShown = 0
-    while(cardsShown < 5):
+    betRound = 0
+    while(betRound < 4):
         for i in range(0, playerCount):
             f = open("in.txt", mode = 'w')
             ''' example in.txt for pre-flop
@@ -103,7 +105,29 @@ def runRound(playerCount, playerBalances):
                 f.write(f"{balance} ")
             f.write("\n")
             f.close()
+            # run algorithm
+            try:
+                f = open("out.txt", mode = 'r')
+                betAmount = int(f.readline())
+                if(betAmount > playerBalances[i] or betAmount < 0):
+                    for j in range(betRound, 4):
+                        bets[i][j] = -2 # -2 means folded
+                else:
+                    playerBalances[i] -= betAmount
+                    bets[i][betRound] = betAmount
+                if(playerBalances[i] == 0):
+                    for j in range(betRound + 1, 4):
+                        bets[i][j] = -3 # -3 means all in
+                f.close()
+            except Exception as e:
+                print(e)
+                for j in range(betRound, 4):
+                    bets[i][j] = -2
+            print(bets)
+            os.remove("in.txt")
+            os.remove("out.txt")
             cardsShown = 5
+            betRound = 4
             break
 
     return(playerBalances)
@@ -113,8 +137,8 @@ def main():
     playerAlgorithmFilePaths = []
     for i in range(0, playerCount):
         playerAlgorithmFilePaths.append(sys.argv[i + 1])
-    playerBalances = runRound(playerCount, playerBalances)
-
+    playerBalances = runRound(playerCount, playerBalances, playerAlgorithmFilePaths)
+    print(playerBalances)
 if __name__ == "__main__":
     main()
 
