@@ -10,5 +10,5 @@ venv/
 *~
 
 # engine stuff
-in.txt
-out.txt
+*in.txt
+*out.txt
