@@ -15,13 +15,15 @@ export function SponsorGrid() {
     <div className="full-bleed grid grid-cols-4 gap-px border-y border-line bg-line max-mid:grid-cols-2 max-xs:grid-cols-1">
       {sponsors.map((sponsor) => (
         <div key={sponsor.name} className="relative h-[170px] bg-bone">
-          <Image
+	  <a href={sponsor.url}>
+	  <Image
             src={sponsor.logo}
             alt={`${sponsor.name} logo`}
             fill
             sizes="(max-width: 800px) 50vw, 25vw"
             className="object-contain p-8"
           />
+	  </a>
         </div>
       ))}
       {placeholders.map((label) => (
