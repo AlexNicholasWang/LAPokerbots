@@ -14,7 +14,14 @@ export function SponsorGrid() {
   return (
     <div className="full-bleed grid grid-cols-4 gap-px border-y border-line bg-line max-mid:grid-cols-2 max-xs:grid-cols-1">
       {sponsors.map((sponsor) => (
-        <div key={sponsor.name} className="relative h-[170px] bg-bone">
+        <a
+          key={sponsor.name}
+          href={sponsor.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${sponsor.name} (opens in a new tab)`}
+          className="relative block h-[170px] bg-bone hover:outline-2 hover:-outline-offset-2 hover:outline-pink focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-pink"
+        >
           <Image
             src={sponsor.logo}
             alt={`${sponsor.name} logo`}
@@ -22,7 +29,7 @@ export function SponsorGrid() {
             sizes="(max-width: 800px) 50vw, 25vw"
             className="object-contain p-8"
           />
-        </div>
+        </a>
       ))}
       {placeholders.map((label) => (
         <div key={label} className={`${tileClass} bg-panel text-[#77747d]`}>
