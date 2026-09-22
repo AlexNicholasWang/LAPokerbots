@@ -115,7 +115,6 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                 for k in range(cardsShown, 5):
                     cardsToShow += "?? "
                 f.write(cardsToShow)
-                print(cardsToShow) # debug
                 f.write("\n")
                 f.write(f"{playerBalances[i]}\n")
                 for j in range(0, playerCount):
@@ -192,6 +191,15 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
         elif(betRound == 2):
             cardsShown = 5
         betRound += 1
+    direction = 1
+    for hand in playerCards:
+        for card in hand:
+            if(card[1] == 'R'):
+                direction *= -1
+    for card in commonCards:
+        if(card[1] == 'R'):
+            direction *= -1
+    print(direction)
     return(playerBalances) # before this do rankings and give winner money
 def main():
     playerCount = len(sys.argv) - 1
