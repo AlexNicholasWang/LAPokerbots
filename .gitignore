@@ -1,0 +1,14 @@
+# Local environment configuration
+.env
+.env.local
+.venv/
+/.venv/
+venv/*
+venv/
+
+# Emacs stuff
+*~
+
+# engine stuff
+*in.txt
+*out.txt
