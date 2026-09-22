@@ -144,8 +144,14 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                     print(bets)
                     os.remove("in.txt")
                     #os.remove("out.txt")
+                playersDone = 0
+                for i in range(0, playerCount):
+                    if(bets[i][3] == -2 or playerBalances[i] == 0):
+                        playersDone += 1
+                if(playersDone == playerCount - 1):
+                    return(playerBalances)
                 betsDoneInRound += 1
-                if(betsDoneInRound >= 4):
+                if(betsDoneInRound >= 4):                        
                     currentBet = 0
                     areAllSame = True
                     for i in range(0, playerCount):
