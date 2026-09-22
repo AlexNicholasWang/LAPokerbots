@@ -149,7 +149,9 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                     if(bets[i][3] == -2 or playerBalances[i] == 0):
                         playersDone += 1
                 if(playersDone == playerCount - 1):
-                    return(playerBalances)
+                    betRound = 4
+                    isRoundGoing = False
+                    break
                 betsDoneInRound += 1
                 if(betsDoneInRound >= 4):                        
                     currentBet = 0
@@ -172,7 +174,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
         elif(betRound == 2):
             cardsShown = 5
         betRound += 1
-    return(playerBalances)
+    return(playerBalances) # before this do rankings and give winner money
 def main():
     playerCount = len(sys.argv) - 1
     playerBalances = [1000000] * playerCount
