@@ -75,6 +75,18 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
         playerCards.append(currentPlayerCards)
     cardsShown = 0
     betRound = 0
+    cardsHidden = 0
+    indexesHidden = []
+    # make sure to do this again once draw is implemented to check if the drawn card is a skip
+    for i in range(0, playerCount):
+        for j in range(0, 2):
+            if(playerCards[i][j][1] == 'S'):
+                indexesHidden.append(cardsHidden)
+                cardsHidden += 1
+    for i in range(0, 5):
+        if(commonCards[i][1] == 'S'):
+            indexesHidden.append(cardsHidden)
+            cardsHidden += 1
     while(betRound < 4):
         isRoundGoing = True
         betsDoneInRound = 0
@@ -94,10 +106,16 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                 for card in playerCards[i]:
                     f.write(f"{card} ")
                 f.write("\n")
+                cardsToShow = ""
                 for j in range(0, cardsShown):
-                    f.write(f"{commonCards[j]} ")
-                for j in range(cardsShown, 5):
-                    f.write(f"?? ")
+                    if j in indexesHidden:
+                        cardsToShow += "?? "
+                    else:
+                        cardsToShow += f"{commonCards[j]} "
+                for k in range(cardsShown, 5):
+                    cardsToShow += "?? "
+                f.write(cardsToShow)
+                print(cardsToShow) # debug
                 f.write("\n")
                 f.write(f"{playerBalances[i]}\n")
                 for j in range(0, playerCount):
@@ -153,7 +171,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                     isRoundGoing = False
                     break
                 betsDoneInRound += 1
-                if(betsDoneInRound >= 4):                        
+                if(betsDoneInRound >= playerCount):                        
                     currentBet = 0
                     areAllSame = True
                     for i in range(0, playerCount):
