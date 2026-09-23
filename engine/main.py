@@ -224,7 +224,7 @@ Action cards:
 
 Skip on the board — the next community card is dealt face down and only revealed at showdown, so you're betting into an unseen card.
 Reverse on the board — hand rankings invert at showdown (worst hand wins); each subsequent Reverse flips it back.
-Draw Two on the board — both players immediately get a third hole card (best 5 of 8).
+Draw Two on the board — extra card in the common cards showed automatically (determined before skips) 
 Wild in hand — becomes any number+color at showdown, declared secretly to the engine.
 Wild Draw Four in hand — becomes any card at showdown, plus forces your opponent to reveal one random hole card the first time you bet or raise post-flop.
 
