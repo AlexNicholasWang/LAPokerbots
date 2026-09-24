@@ -34,12 +34,12 @@ const sponsors = [
   {
     name: "DRW",
     url: "https://www.drw.com/",
-    logo: "/sponsors/drw.png"
+    logo: "/sponsors/DRW.png"
   },
   {
     name: "AXQ Capital",
     url: "https://www.axqcap.com/",
-    logo: "/sponsors/axq-capital.png"
+    logo: "/sponsors/AXQ-Capital.png"
   },
   {
     name: "Freeport Markets",
@@ -49,7 +49,7 @@ const sponsors = [
   {
     name: "Walleye Capital",
     url: "https://walleyecapital.com/",
-    logo: "/sponsors/walleye-capital.png"
+    logo: "/sponsors/walleye-capital.svg"
   }
 ];
 
