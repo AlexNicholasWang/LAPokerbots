@@ -83,7 +83,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
             if(playerCards[i][j][1] == 'S'):
                 indexesHidden.append(cardsHidden)
                 cardsHidden += 1
-    for i in range(0, 5):
+    for i in range(0, len(commonCards()):
         if(commonCards[i][1] == 'S'):
             indexesHidden.append(cardsHidden)
             cardsHidden += 1
@@ -112,7 +112,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                         cardsToShow += "?? "
                     else:
                         cardsToShow += f"{commonCards[j]} "
-                for k in range(cardsShown, 5):
+                for k in range(cardsShown, len(commonCards)):
                     cardsToShow += "?? "
                 f.write(cardsToShow)
                 f.write("\n")
