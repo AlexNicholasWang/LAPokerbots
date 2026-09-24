@@ -100,7 +100,7 @@ export default function Home() {
               <h1><span>LA</span><br />Pokerbots</h1>
               <p className="hero-copy">
                 One week. One autonomous poker bot. A city built on bold bets.
-                Build your strategy in Los Angeles and battle it out over 500,000+ hands.
+                Build your strategy in Los Angeles and battle it out over 500,000 hands.
               </p>
               <div className="hero-actions">
                 <a className="button primary" href="https://lu.ma/" target="_blank" rel="noreferrer">Register</a>
