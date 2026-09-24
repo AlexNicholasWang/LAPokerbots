@@ -1,49 +1,29 @@
-# LA Pokerbots
+# LA Pokerbots — Enhanced LA Theme
 
-Site for UCLA's LA Pokerbots competition. Next.js (App Router) + Tailwind CSS v4 + shadcn/ui + Motion.
+Responsive Next.js frontend for LA Pokerbots with the Los Angeles sunset / skyline visual system.
 
 ## Run locally
 
-```sh
+```bash
 npm install
 npm run dev
 ```
 
-Then visit `http://localhost:3000`.
+Open `http://localhost:3000`.
 
-```sh
-npm run build   # production build
-npm run lint
-```
+## What was improved
 
-## Layout
+- Rebuilt responsive typography so titles and long words do not clip on desktop, tablet, or mobile.
+- Added safer grid sizing (`minmax(0, ...)`) and text wrapping for sponsors, email addresses, prize labels, and team cards.
+- Made the hero cards/sun scale fluidly instead of relying on fixed pixel sizes.
+- Relaxed overly-tight display line heights that were cropping serif letters.
+- Improved spacing at 1080px, 820px, 560px, and 390px breakpoints.
+- Preserved the LA sunset, skyline, palms, poker cards, and West Coast color palette.
 
-| Path | What's there |
-| --- | --- |
-| `app/` | One folder per route: `/`, `/about`, `/competition`, `/sponsors`, `/join` |
-| `app/globals.css` | Design tokens (`@theme`), the `wrap` / `grid-overlay` / `full-bleed` utilities, and the marquee keyframes |
-| `components/` | Site components — header, footer, card grid, sponsor ticker, timeline, etc. |
-| `components/ui/` | shadcn/ui primitives. Add more with `npx shadcn@latest add <name>` |
-| `content/` | Editable site data — see below |
-| `public/sponsors/` | Sponsor logos |
+A standalone `preview.html` is included for quick viewing without installing dependencies.
 
-## Editing content
 
-Most seasonal edits happen in `content/`, not in the page files:
-
-- `site.ts` — email, Luma event URL, GitHub link, year, nav items
-- `sponsors.ts` — the sponsor roster; feeds **both** the sponsors grid and the home-page ticker
-- `schedule.ts` — competition timeline
-- `prizes.ts` — prize tiers
-- `rules.ts` — competition rules
-
-To add a sponsor, drop the logo in `public/sponsors/` and add one entry to `sponsors.ts`. The grid fills its 8 tiles with placeholders for whatever isn't confirmed yet.
-
-Headings and body copy live inline in the page files under `app/`.
-
-## Notes
-
-- The site is dark-only. Colors come from the `@theme` block in `app/globals.css`; shadcn's semantic tokens (`--primary`, `--border`, …) are aliased onto the same palette, so shadcn components inherit it automatically.
-- Competitor registration uses the Luma event, embedded on `/about`. `/join` is for organizing-team applications and has a disabled placeholder until the Google Form exists.
-- All animation is gated on `prefers-reduced-motion`.
-- Every route prerenders as static, so the site can move to a static export (`output: 'export'` + `images.unoptimized`) without code changes.
+## v2 visual fixes
+- Removed the yellow ticker strip below the hero.
+- Repositioned/resized the oversized background LA so the A stays visible.
+- Added safer title spacing and line-height so the foreground LA does not clip at desktop or mobile widths.
