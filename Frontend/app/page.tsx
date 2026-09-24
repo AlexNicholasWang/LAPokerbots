@@ -26,11 +26,31 @@ const faqs = [
 ];
 
 const sponsors = [
-  { name: "JANE STREET", url: "https://www.janestreet.com/" },
-  { name: "DRW", url: "https://www.drw.com/" },
-  { name: "AXQ CAPITAL", url: "https://www.axqcap.com/" },
-  { name: "FREEPORT MARKETS", url: "https://freeportmarkets.com/" },
-  { name: "WALLEYE CAPITAL", url: "https://www.walleyecapital.com/" },
+  {
+    name: "Jane Street",
+    url: "https://www.janestreet.com/",
+    logo: "/sponsors/jane-street.png"
+  },
+  {
+    name: "DRW",
+    url: "https://www.drw.com/",
+    logo: "/sponsors/drw.png"
+  },
+  {
+    name: "AXQ Capital",
+    url: "https://www.axqcap.com/",
+    logo: "/sponsors/axq-capital.png"
+  },
+  {
+    name: "Freeport Markets",
+    url: "https://freeportmarkets.com/",
+    logo: "/sponsors/freeport-markets.png"
+  },
+  {
+    name: "Walleye Capital",
+    url: "https://walleyecapital.com/",
+    logo: "/sponsors/walleye-capital.png"
+  }
 ];
 
 function LASkyline() {
@@ -100,7 +120,7 @@ export default function Home() {
               <h1><span>LA</span><br />Pokerbots</h1>
               <p className="hero-copy">
                 One week. One autonomous poker bot. A city built on bold bets.
-                Build your strategy in Los Angeles and battle it out over 500,000 hands.
+                Build your strategy in Los Angeles and battle it out over 500,000+ hands.
               </p>
               <div className="hero-actions">
                 <a className="button primary" href="https://lu.ma/" target="_blank" rel="noreferrer">Register</a>
@@ -122,7 +142,7 @@ export default function Home() {
       <section className="content-section section-shell" id="about">
         <p className="eyebrow warm">WHAT IS LA POKERBOTS?</p>
         <div className="two-column">
-          <h2>New Pokerbot Arena<br /><em>Los Angeles attitude.</em></h2>
+          <h2>New Pokerbots Arena.<br /><em>Los Angeles attitude.</em></h2>
           <div className="body-copy">
             <p>
               LA Pokerbots is a student-run computerized poker tournament.
@@ -187,11 +207,15 @@ export default function Home() {
                 key={sponsor.name}
                 href={sponsor.url}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label={`Visit ${sponsor.name}`}
               >
                 <span className="sponsor-number">0{index + 1}</span>
-                <strong>{sponsor.name}</strong>
+                <img
+                  className="sponsor-logo"
+                  src={sponsor.logo}
+                  alt={`${sponsor.name} logo`}
+                />
                 <span className="sponsor-link">VISIT ↗</span>
               </a>
             ))}
@@ -222,7 +246,7 @@ export default function Home() {
         <p className="eyebrow warm">MEET THE TEAM</p>
         <div className="two-column team-intro">
           <h2>Built in LA.<br /><em>Run by students.</em></h2>
-          <p className="body-copy">LA Pokerbots brings the spirit of MIT Pokerbots to Los Angeles with a compact, high-intensity competition built around strategy, engineering, and community.</p>
+          <p className="body-copy">LA Pokerbots brings the spirit of AI Poker to Los Angeles with a compact, high-intensity competition built around strategy, engineering, and community.</p>
         </div>
         <div className="team-grid">
           <div className="team-card featured">
