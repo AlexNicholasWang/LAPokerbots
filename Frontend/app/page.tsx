@@ -251,11 +251,11 @@ export default function Home() {
         <div className="team-grid">
           <div className="team-card featured">
             <div className="avatar">AW</div>
-            <div><strong>Alexander Wang</strong><span>Founder</span></div>
+            <div><strong>Alexander Wang</strong><span>Founder · UCLA</span></div>
           </div>
           <div className="team-card">
             <div className="avatar alt">LA</div>
-            <div><strong>Max Bregler</strong><span>Engine Engineer</span></div>
+            <div><strong>LA Pokerbots Team</strong><span>2027 Organizers</span></div>
           </div>
         </div>
       </section>
