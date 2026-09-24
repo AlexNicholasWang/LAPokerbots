@@ -1,192 +1,258 @@
-import { Button } from "@/components/ui/button";
-import { Reveal, Rise } from "@/components/motion";
-import { Eyebrow, Section, SectionHead } from "@/components/section";
-import { SponsorGrid } from "@/components/sponsor-grid";
-import { site } from "@/content/site";
-import Image from "next/image";
-
-const prizes = [
-  { place: "1st place", amount: "$3,000" },
-  { place: "2nd place", amount: "$2,000" },
-  { place: "3rd place", amount: "$1,000" },
-] as const;
-
-const facts = [
-  { value: "500K+", label: "Hands simulated" },
-  { value: "$5K+", label: "Cash prizes" },
-  { value: "1–4", label: "Students per team" },
-] as const;
-/**
- * Organizing team. `photo` is a path under /public (e.g. "/team/alex.jpg");
- * leave it out to show initials instead. `href` links the name (e.g. LinkedIn).
- */
-const team: { name: string; role: string; photo?: string; href?: string }[] = [
-  { name: "Alexander Wang", role: "Founder", photo: "/team/alexander.jpg" },
-  { name: "Max Bregler", role: "Engine Engineer", photo: "/team/max.jpg" },
+const faqs = [
+  {
+    q: "Why Poker?",
+    a: "Poker is a game of incomplete information, probability, and strategy. LA Pokerbots turns those ideas into a programming competition where teams build autonomous agents that make decisions under uncertainty."
+  },
+  {
+    q: "Is this a programming competition?",
+    a: "Yes. Teams build a fully autonomous poker bot and compete against other teams. You can write your bot in Python, C++, or Java."
+  },
+  {
+    q: "How much coding experience do I need?",
+    a: "All experience levels are welcome. Prior programming experience helps, but the event is designed so motivated students can learn quickly during the sprint."
+  },
+  {
+    q: "How many people can be on a team?",
+    a: "Teams may have 1–4 members."
+  },
+  {
+    q: "What is the tournament format?",
+    a: "Bots compete over 500,000+ hands to reduce variance. The top 8 teams from the qualifier advance to a live finals bracket."
+  },
+  {
+    q: "When is LA Pokerbots?",
+    a: "Kickoff is January 10, 2027. Teams build and scrimmage January 10–15, qualifiers are January 16, and live finals are January 17."
+  }
 ];
 
-const initials = (name: string) =>
-  name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
+const sponsors = [
+  { name: "JANE STREET", url: "https://www.janestreet.com/" },
+  { name: "DRW", url: "https://www.drw.com/" },
+  { name: "AXQ CAPITAL", url: "https://www.axqcap.com/" },
+  { name: "FREEPORT MARKETS", url: "https://freeportmarkets.com/" },
+  { name: "WALLEYE CAPITAL", url: "https://www.walleyecapital.com/" },
+];
+
+function LASkyline() {
+  return (
+    <svg className="la-skyline" viewBox="0 0 1200 260" aria-hidden="true" preserveAspectRatio="none">
+      <path className="hills" d="M0 185 C120 150 210 156 306 128 C420 95 505 138 602 108 C720 72 824 118 928 92 C1034 65 1104 91 1200 70 L1200 260 L0 260 Z" />
+      <path className="city" d="M0 214 H72 V182 H105 V201 H142 V163 H178 V210 H220 V180 H250 V206 H290 V140 H329 V193 H366 V174 H392 V213 H438 V160 H470 V190 H508 V121 H545 V209 H588 V166 H622 V197 H652 V148 H686 V207 H727 V176 H754 V120 H787 V204 H823 V156 H860 V194 H890 V134 H928 V207 H964 V178 H1002 V151 H1036 V205 H1072 V171 H1106 V194 H1142 V143 H1174 V211 H1200 V260 H0 Z" />
+      <g className="palm palm-one" transform="translate(92 84)">
+        <path d="M28 55 C31 94 25 132 18 180" />
+        <path d="M29 58 C7 45 3 31 0 22 C19 24 28 35 31 53" />
+        <path d="M29 58 C18 34 22 20 29 8 C40 27 38 43 31 56" />
+        <path d="M30 58 C45 35 58 31 70 31 C59 47 47 55 31 60" />
+        <path d="M29 59 C8 61 -3 70 -10 82 C11 80 22 72 31 61" />
+      </g>
+      <g className="palm palm-two" transform="translate(1040 100) scale(.82)">
+        <path d="M28 55 C31 94 25 132 18 180" />
+        <path d="M29 58 C7 45 3 31 0 22 C19 24 28 35 31 53" />
+        <path d="M29 58 C18 34 22 20 29 8 C40 27 38 43 31 56" />
+        <path d="M30 58 C45 35 58 31 70 31 C59 47 47 55 31 60" />
+        <path d="M29 59 C8 61 -3 70 -10 82 C11 80 22 72 31 61" />
+      </g>
+    </svg>
+  );
+}
+
+function PokerCards() {
+  return (
+    <div className="card-stage" aria-hidden="true">
+      <div className="sun-disc" />
+      <div className="playing-card card-back" />
+      <div className="playing-card card-front">
+        <span className="card-corner">A<br />♠</span>
+        <span className="big-spade">♠</span>
+        <span className="la-stamp">LOS<br />ANGELES</span>
+        <span className="card-corner bottom">A<br />♠</span>
+      </div>
+      <div className="floating-chip chip-one">LA</div>
+      <div className="floating-chip chip-two">♠</div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <>
-      {/* Hero — SCPT style: logo, dates, host line, one big register button. */}
-      <header className="relative grid min-h-[calc(100vh-76px)] place-items-center py-[90px] text-center">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(118,112,255,0.20),transparent_60%)]"
-        />
-        <div className="wrap relative z-[1] flex flex-col items-center">
-          <Rise>
-            <span className="grid size-[92px] place-items-center rounded-full border-2 border-pink text-[2.6rem] shadow-[inset_0_0_0_8px_var(--color-ink),inset_0_0_0_10px_var(--color-blue)]">
-              ♠
-            </span>
-          </Rise>
-          <Rise delay={0.08}>
-            <h1 className="text-page mt-8 leading-[0.85] font-medium tracking-[-0.06em] uppercase">
-              LA <span className="text-pink">Pokerbots</span>
-            </h1>
-          </Rise>
-          <Rise delay={0.16}>
-            <p className="mt-7 font-mono text-[0.95rem] tracking-[0.06em] text-fog">
-              Winter 2027 @ UCLA · Westwood, CA
+    <main>
+      <section className="hero" id="top">
+        <div className="section-shell">
+          <nav className="nav">
+            <a className="brand" href="#top" aria-label="LA Pokerbots home">
+              <span className="brand-mark">♠</span>
+              <span>LA Pokerbots</span>
+            </a>
+            <div className="nav-links">
+              <a href="#about">About</a>
+              <a href="#faq">FAQ</a>
+              <a href="#sponsors">Sponsors</a>
+              <a href="#team">Team</a>
+            </div>
+          </nav>
+
+          <div className="hero-grid">
+            <div className="hero-copy-wrap">
+              <div className="location-row">
+                <p className="eyebrow">UCLA · LOS ANGELES · WINTER 2027</p>
+                <span className="coordinates">34.0522° N · 118.2437° W</span>
+              </div>
+              <h1><span>LA</span><br />Pokerbots</h1>
+              <p className="hero-copy">
+                One week. One autonomous poker bot. A city built on bold bets.
+                Build your strategy in Los Angeles and battle it out over 500,000 hands.
+              </p>
+              <div className="hero-actions">
+                <a className="button primary" href="https://lu.ma/" target="_blank" rel="noreferrer">Register</a>
+                <a className="button secondary" href="#about">Explore the competition</a>
+              </div>
+              <div className="la-tags" aria-label="Los Angeles theme">
+                <span>WEST COAST AI</span><i />
+                <span>GAME THEORY</span><i />
+                <span>POKER</span><i />
+                <span>LOS ANGELES</span>
+              </div>
+            </div>
+
+            <PokerCards />
+          </div>
+        </div>
+        <LASkyline />
+      </section>
+      <section className="content-section section-shell" id="about">
+        <p className="eyebrow warm">WHAT IS LA POKERBOTS?</p>
+        <div className="two-column">
+          <h2>New Pokerbot Arena<br /><em>Los Angeles attitude.</em></h2>
+          <div className="body-copy">
+            <p>
+              LA Pokerbots is a student-run computerized poker tournament.
+              Teams have one week to design, build, and refine a completely autonomous poker agent.
             </p>
-            <p className="mt-2 font-mono text-[0.78rem] tracking-[0.1em] text-dim uppercase">
-              UCLA&apos;s poker AI competition
+            <p>
+              Competitors combine computer science, mathematics, economics, game theory, machine learning,
+              and decision-making under uncertainty—then put those ideas to the test head-to-head.
             </p>
-          </Rise>
-          <Rise delay={0.24}>
-            <Button asChild variant="apply" size="cta" className="mt-9 px-12">
-              <a href="#register">Register</a>
-            </Button>
-          </Rise>
+          </div>
         </div>
-      </header>
 
-      <Section className="scroll-mt-6" id="team">
-        <SectionHead
-          eyebrow="Team"
-          heading="Meet the team!"
-          lede="The people behind LA Pokerbots."
-        />
-        {/* auto-fit: the grid stays balanced as more members are added. */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-px border border-line bg-line text-center">
-          {team.map((member) => (
-            <Reveal key={member.name} className="bg-ink px-6 py-[54px]">
-              <span className="relative mx-auto grid size-[104px] place-items-center rounded-full border-2 border-pink font-mono text-[1.25rem] font-bold tracking-[0.08em] shadow-[inset_0_0_0_8px_var(--color-ink),inset_0_0_0_10px_var(--color-blue)]">
-                {member.photo ? (
-                  <span className="absolute inset-[10px] overflow-hidden rounded-full">
-                    <Image
-                      src={member.photo}
-                      alt={member.name}
-                      fill
-                      sizes="80px"
-                      className="object-cover"
-                    />
-                  </span>
-                ) : (
-                  initials(member.name)
-                )}
-              </span>
-              <b className="mt-6 block text-[1.35rem] leading-tight font-medium tracking-[-0.03em]">
-                {member.href ? (
-                  <a
-                    href={member.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="no-underline hover:text-pink"
-                  >
-                    {member.name}
-                  </a>
-                ) : (
-                  member.name
-                )}
-              </b>
-              <Eyebrow className="mt-3 text-dim">{member.role}</Eyebrow>
-            </Reveal>
-          ))}
+        <div className="stats-grid">
+          <div><span className="stat-kicker">TEAM SIZE</span><strong>1–4</strong><span>students per team</span></div>
+          <div><span className="stat-kicker">VOLUME</span><strong>500K+</strong><span>hands played</span></div>
+          <div><span className="stat-kicker">FINALS</span><strong>8</strong><span>top teams advance</span></div>
+          <div><span className="stat-kicker">PRIZES</span><strong>$6K</strong><span>on the line</span></div>
         </div>
-      </Section>
+      </section>
 
-      <Section className="scroll-mt-6" id="about">
-        <SectionHead eyebrow="About" heading="About LA Pokerbots." />
-        <Reveal className="grid max-w-[820px] gap-6 text-[1.05rem] text-fog">
-          <p>
-            LA Pokerbots is a one-week computerized poker tournament held at
-            UCLA. Teams of 1–4 program a completely autonomous pokerbot in
-            Python, C++, or Java that competes against other bots across 500K+
-            simulated hands. This free-to-enter competition is meant to engage
-            students in strategic AI — game theory, probability, and code —
-            with the opportunity to win cash prizes!
+      <section className="la-break">
+        <div className="section-shell la-break-inner">
+          <div>
+            <p className="eyebrow sunset">BUILT ON THE WEST COAST</p>
+            <h2>Code by day.<br />Compete by night.</h2>
+          </div>
+          <div className="sunset-copy">
+            <p>Fast builds, high-variance ideas, late-night scrimmages, and one live finals bracket.</p>
+            <div className="neighborhood-line"><span>WESTWOOD</span><span>DTLA</span><span>PACIFIC</span><span>LA</span></div>
+          </div>
+        </div>
+        <div className="ocean-lines" aria-hidden="true"><span /><span /><span /></div>
+      </section>
+
+      <section className="dark-section" id="faq">
+        <div className="stars" aria-hidden="true" />
+        <div className="section-shell night-content">
+          <p className="eyebrow night">FAQ · AFTER DARK</p>
+          <div className="faq-header">
+            <h2>Everything before<br />you ante up.</h2>
+            <span className="mini-sign">LA<br />2027</span>
+          </div>
+          <div className="faq-list">
+            {faqs.map((item, i) => (
+              <details key={item.q} open={i === 0}>
+                <summary>{item.q}<span>+</span></summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="content-section sponsor-section" id="sponsors">
+        <div className="section-shell">
+          <p className="eyebrow warm">2027 SPONSORS</p>
+          <h2 className="section-title">Backed by firms that know how to make a calculated bet.</h2>
+          <div className="sponsor-grid">
+            {sponsors.map((sponsor, index) => (
+              <a
+                className={`sponsor-card sponsor-${index + 1}`}
+                key={sponsor.name}
+                href={sponsor.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Visit ${sponsor.name}`}
+              >
+                <span className="sponsor-number">0{index + 1}</span>
+                <strong>{sponsor.name}</strong>
+                <span className="sponsor-link">VISIT ↗</span>
+              </a>
+            ))}
+          </div>
+          <p className="sponsor-note">
+            Interested in sponsoring LA Pokerbots? Reach out at <a href="mailto:alexwang770@g.ucla.edu">alexwang770@g.ucla.edu</a>.
           </p>
-          <p>
-            The competition is open to everyone; no poker experience is
-            required, and starter bots plus workshops are provided. Competitors
-            get kickoff night on Jan 10, nightly scrimmages through Jan 15, a
-            qualifier round robin on Jan 16, and a live top-eight finals
-            bracket on Jan 17 — alongside recruiting attention from our
-            sponsors, which include leading quantitative trading firms.
-          </p>
-        </Reveal>
-      </Section>
-
-      <Section className="scroll-mt-6" id="prizes">
-        <SectionHead eyebrow="Prizes" heading="Prize money." />
-        <div className="grid grid-cols-3 gap-px border border-line bg-line text-center max-mid:grid-cols-1">
-          {prizes.map((prize) => (
-            <Reveal key={prize.place} className="bg-ink px-6 py-[54px]">
-              <Eyebrow className="text-dim">{prize.place}</Eyebrow>
-              <b className="text-num-md mt-4 block font-mono leading-none font-normal text-pink">
-                {prize.amount}
-              </b>
-            </Reveal>
-          ))}
         </div>
-      </Section>
+      </section>
 
-      <Section className="scroll-mt-6" id="sponsors">
-        <SectionHead
-          eyebrow="Sponsors"
-          heading="2027 sponsors."
-          lede={`Interested in sponsoring? Send us an email at ${site.email}.`}
-        />
-        <SponsorGrid />
-      </Section>
-
-      <Section>
-        <SectionHead eyebrow="Fast facts" heading="By the numbers." />
-        <div className="grid grid-cols-3 gap-px border border-line bg-line text-center max-mid:grid-cols-1">
-          {facts.map((fact) => (
-            <Reveal key={fact.label} className="bg-ink px-6 py-[54px]">
-              <b className="text-num-md block font-mono leading-none font-normal text-pink">
-                {fact.value}
-              </b>
-              <Eyebrow className="mt-4 text-dim">{fact.label}</Eyebrow>
-            </Reveal>
-          ))}
+      <section className="prize-section">
+        <div className="prize-sun" aria-hidden="true" />
+        <div className="section-shell prize-grid">
+          <div>
+            <p className="eyebrow sunset">THE POT</p>
+            <h2>Play for the<br />LA podium.</h2>
+            <p className="prize-copy">Three places. Six thousand dollars. One week to build something worth betting on.</p>
+          </div>
+          <div className="prizes">
+            <div><span>01 · FIRST</span><strong>$3,000</strong></div>
+            <div><span>02 · SECOND</span><strong>$2,000</strong></div>
+            <div><span>03 · THIRD</span><strong>$1,000</strong></div>
+          </div>
         </div>
-      </Section>
+      </section>
 
-      <Section className="scroll-mt-6 border-b-0" id="register">
-        <SectionHead
-          eyebrow="Register"
-          heading="Take your seat."
-          lede="Sign up as a competitor through Luma below."
-        />
-        <Reveal className="overflow-hidden border border-line bg-panel">
-          <iframe
-            src={site.luma}
-            title="LA Pokerbots competitor registration on Luma"
-            allow="fullscreen; payment"
-            className="block h-[620px] w-full border-0 max-mid:h-[700px]"
-          />
-        </Reveal>
-      </Section>
-    </>
+      <section className="content-section section-shell" id="team">
+        <p className="eyebrow warm">MEET THE TEAM</p>
+        <div className="two-column team-intro">
+          <h2>Built in LA.<br /><em>Run by students.</em></h2>
+          <p className="body-copy">LA Pokerbots brings the spirit of MIT Pokerbots to Los Angeles with a compact, high-intensity competition built around strategy, engineering, and community.</p>
+        </div>
+        <div className="team-grid">
+          <div className="team-card featured">
+            <div className="avatar">AW</div>
+            <div><strong>Alexander Wang</strong><span>Founder · UCLA</span></div>
+          </div>
+          <div className="team-card">
+            <div className="avatar alt">LA</div>
+            <div><strong>LA Pokerbots Team</strong><span>2027 Organizers</span></div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div className="footer-sunset" aria-hidden="true" />
+        <div className="section-shell footer-grid">
+          <div>
+            <div className="brand footer-brand"><span className="brand-mark">♠</span><span>LA Pokerbots</span></div>
+            <h3>See you in Los Angeles.</h3>
+            <p>Questions, comments, or sponsorship inquiries?</p>
+            <a href="mailto:alexwang770@g.ucla.edu">alexwang770@g.ucla.edu</a>
+          </div>
+          <div className="footer-right">
+            <p>34.0522° N · 118.2437° W</p>
+            <p>© LA Pokerbots 2027</p>
+            <a href="#top">Back to top ↑</a>
+          </div>
+        </div>
+        <LASkyline />
+      </footer>
+    </main>
   );
 }
