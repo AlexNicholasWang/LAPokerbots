@@ -8,6 +8,7 @@ venv/
 
 # Emacs stuff
 *~
+#*
 
 # engine stuff
 *in.txt
