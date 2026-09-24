@@ -77,13 +77,35 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
     betRound = 0
     cardsHidden = 0
     indexesHidden = []
-    # make sure to do this again once draw is implemented to check if the drawn card is a skip
+    for i in range(0, playerCount):
+        for j in range(0, 2):
+            if(playerCards[i][j][1] == 'D'):
+                isStillDrawing = True
+                while(isStillDrawing):
+                    cardNum = random.randint(0, 107)
+                    while(cardNum not in cardNums):
+                        cardNum = random.randint(0, 107)
+                    commonCards.append(parseCard(cardNum))
+                    cardNums.remove(cardNum)
+                    if(commonCards[len(commonCards) - 1][1] != 'D'):
+                        isStillDrawing = False
+    for i in range(0, 5):
+        if(commonCards[i][1] == 'D'):
+            isStillDrawing = True
+            while(isStillDrawing):
+                cardNum = random.randint(0, 107)
+                while(cardNum not in cardNums):
+                    cardNum = random.randint(0, 107)
+                commonCards.append(parseCard(cardNum))
+                cardNums.remove(cardNum)
+                if(commonCards[len(commonCards) - 1][1] != 'D'):
+                    isStillDrawing = False
     for i in range(0, playerCount):
         for j in range(0, 2):
             if(playerCards[i][j][1] == 'S'):
                 indexesHidden.append(cardsHidden)
                 cardsHidden += 1
-    for i in range(0, len(commonCards()):
+    for i in range(0, len(commonCards)):
         if(commonCards[i][1] == 'S'):
             indexesHidden.append(cardsHidden)
             cardsHidden += 1
