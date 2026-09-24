@@ -122,10 +122,10 @@ export default function Home() {
       <section className="content-section section-shell" id="about">
         <p className="eyebrow warm">WHAT IS LA POKERBOTS?</p>
         <div className="two-column">
-          <h2>MIT Pokerbots energy.<br /><em>Los Angeles attitude.</em></h2>
+          <h2>New Pokerbot Arena<br /><em>Los Angeles attitude.</em></h2>
           <div className="body-copy">
             <p>
-              LA Pokerbots is a student-run computerized poker tournament inspired by MIT Pokerbots.
+              LA Pokerbots is a student-run computerized poker tournament.
               Teams have one week to design, build, and refine a completely autonomous poker agent.
             </p>
             <p>
