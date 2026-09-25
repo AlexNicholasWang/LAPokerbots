@@ -23,6 +23,10 @@ def judgeHand(cards):
     for i in range(0, 5):
         if(order[cards[i][1]] >= highCard):
             highCard = order[cards[i][1]]
+    values = []
+    for i in range(0, 5):
+        if(order[cards[i][1]] not in values):
+            values.append(order[cards[i][1]])
     zeroes = 0
     hasWild = False
     for i in range(0, 5):
@@ -36,7 +40,7 @@ def judgeHand(cards):
         cardToCheck = cards[i][1]
         count = 0
         for j in range(0, 5):
-            if(cards[i][1] == cardToCheck):
+            if(cards[j][1] == cardToCheck):
                 count += 1
         if(count == 4):
             return([1, order[cardToCheck]])
@@ -47,17 +51,23 @@ def judgeHand(cards):
                 isSameColor = False
                 break
         if(isSameColor):
-            # check if actually ascending, if so return two
+            isSequence = True
+            for i in range(0, 5):
+                if((highCard - i) not in values):
+                    isSequence = False
+                    break
+            if(isSequence):
+                return([2, highCard])
     for i in range(0, 5):
         cardToCheck = cards[i][1]
         count = 0
         for j in range(0, 5):
-            if(cards[i][1] == cardToCheck):
+            if(cards[j][1] == cardToCheck):
                 count += 1
             if(count == 3):
                 for k in range(0, 5):
                     if(cards[k][1] != cardToCheck):
-                        for l in range(k, 5):
+                        for l in range(k + 1, 5):
                             if(cards[l][1] == cards[k][1]):
                                 return([3, order[cardToCheck]])
                 return([4, order[cardToCheck]])
@@ -69,15 +79,32 @@ def judgeHand(cards):
                 break
         if(isAllSameColor):
             return([5, highCard])
-    # sequence different colors 6
-    values = []
+    isSequence = True
     for i in range(0, 5):
-        if(cards[i][1] not in values):
-            values.append(cards[i][1])
+        if((highCard - i) not in values):
+            isSequence = False
+            break
+    if(isSequence):
+        return([6, highCard])
     if(len(values) == 3):
-        return([7, highCard])
+        freqs = {values[0]: 0, values[1]: 0, values[2]: 0}
+        for i in range(0, 5):
+            freqs[order[cards[i][1]]] += 1
+        highPair = values[0]
+        for freq in freqs:
+            if(freqs[freq] == 2 and freq > highPair):
+                highPair = freq
+        return([7, highPair])
     if(len(values) == 4):
-        return([8, highCard])
+        pairValue = values[0]
+        for i in range(0, 5):
+            count = 0
+            for j in range(0, 5):
+                if(cards[i][1] == cards[j][1]):
+                    count += 1
+            if(count == 2):
+                pairValue = order[cards[i][1]]
+        return([8, pairValue])
     return([9, highCard])
 def parseCard(cardNum):
     # colors, R, Y, G, B
@@ -177,6 +204,7 @@ def runRound(playerCount, playerBalances, playerAlgorithmFilePaths):
                     isStillDrawing = False
     print(playerCards)
     print(commonCards)
+    print(judgeHand(["G9", "G3", "GW", "G5", "Y2"])) # bookmark
     for i in range(0, playerCount):
         for j in range(0, 2):
             if(playerCards[i][j][1] == 'S'):
