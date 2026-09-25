@@ -50,6 +50,11 @@ const sponsors = [
     name: "Walleye Capital",
     url: "https://walleyecapital.com/",
     logo: "/sponsors/walleye-capital.svg"
+  },
+  {
+    name: "AGI Inc",
+    url: "https://agi.inc/",
+    logo: "/sponsors/agi_inc.svg"
   }
 ];
 
