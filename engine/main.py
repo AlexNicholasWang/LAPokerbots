@@ -2,9 +2,86 @@ import random
 import sys
 import os
 
+def judgeHand(cards):
+    '''
+    hand ranks
+    0 - all 0s plus any wild
+    1 - quads
+    2 - sequence in one color
+    3 - triple and pair
+    4 - triple
+    5 - all one color
+    6 - sequence in mixed colors
+    7 - two pairs
+    8 - pair
+    9 - high card
+    '''
+    # order = 0123456789SDRW
+    order = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'S': 10, 'D': 11, 'R': 12, 'W': 13}
+    colors = ['R', 'Y', 'G', 'B']
+    highCard = 0
+    for i in range(0, 5):
+        if(order[cards[i][1]] >= highCard):
+            highCard = order[cards[i][1]]
+    zeroes = 0
+    hasWild = False
+    for i in range(0, 5):
+        if(cards[i][1] == '0'):
+            zeroes += 1
+        elif(cards[i][1] == 'W'):
+            hasWild = True
+    if(zeroes == 4 and hasWild == True):
+        return([0, order['W']])
+    for i in range(0, 5):
+        cardToCheck = cards[i][1]
+        count = 0
+        for j in range(0, 5):
+            if(cards[i][1] == cardToCheck):
+                count += 1
+        if(count == 4):
+            return([1, order[cardToCheck]])
+    for color in colors:
+        isSameColor = True
+        for i in range(0, 5):
+            if(cards[i][0] != color):
+                isSameColor = False
+                break
+        if(isSameColor):
+            # check if actually ascending, if so return two
+    for i in range(0, 5):
+        cardToCheck = cards[i][1]
+        count = 0
+        for j in range(0, 5):
+            if(cards[i][1] == cardToCheck):
+                count += 1
+            if(count == 3):
+                for k in range(0, 5):
+                    if(cards[k][1] != cardToCheck):
+                        for l in range(k, 5):
+                            if(cards[l][1] == cards[k][1]):
+                                return([3, order[cardToCheck]])
+                return([4, order[cardToCheck]])
+    for color in colors:
+        isAllSameColor = True
+        for i in range(0, 5):
+            if(cards[i][0] != color):
+                isAllSameColor = False
+                break
+        if(isAllSameColor):
+            return([5, highCard])
+    # sequence different colors 6
+    values = []
+    for i in range(0, 5):
+        if(cards[i][1] not in values):
+            values.append(cards[i][1])
+    if(len(values) == 3):
+        return([7, highCard])
+    if(len(values) == 4):
+        return([8, highCard])
+    return([9, highCard])
 def parseCard(cardNum):
     # colors, R, Y, G, B
-    # for each color, 0123456789123456789SDRSDRW+
+    # for each color, 0123456789123456789SDRSDRW
     # S is skip, D is draw two, R is reverse, W is wild
     card = ""
     color = (cardNum - (cardNum % 26)) / 26
