@@ -42,14 +42,14 @@ const sponsors = [
     logo: "/sponsors/AXQ-Capital.png"
   },
   {
-    name: "Freeport Markets",
-    url: "https://freeportmarkets.com/",
-    logo: "/sponsors/freeport-markets.png"
-  },
-  {
     name: "Walleye Capital",
     url: "https://walleyecapital.com/",
     logo: "/sponsors/walleye-capital.svg"
+  },
+  {
+    name: "Freeport Markets",
+    url: "https://freeportmarkets.com/",
+    logo: "/sponsors/freeport-markets.png"
   },
   {
     name: "AGI Inc",
