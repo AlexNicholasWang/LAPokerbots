@@ -128,7 +128,7 @@ export default function Home() {
                 Build your strategy in Los Angeles and battle it out over 500,000+ hands.
               </p>
               <div className="hero-actions">
-                <a className="button primary" href="https://lu.ma/" target="_blank" rel="noreferrer">Register</a>
+                <a className="button primary" href="https://luma.com/vii7ag1m" target="_blank" rel="noreferrer">Register</a>
                 <a className="button secondary" href="#about">Explore the competition</a>
               </div>
               <div className="la-tags" aria-label="Los Angeles theme">
@@ -182,25 +182,6 @@ export default function Home() {
         <div className="ocean-lines" aria-hidden="true"><span /><span /><span /></div>
       </section>
 
-      <section className="dark-section" id="faq">
-        <div className="stars" aria-hidden="true" />
-        <div className="section-shell night-content">
-          <p className="eyebrow night">FAQ · AFTER DARK</p>
-          <div className="faq-header">
-            <h2>Everything before<br />you ante up.</h2>
-            <span className="mini-sign">LA<br />2027</span>
-          </div>
-          <div className="faq-list">
-            {faqs.map((item, i) => (
-              <details key={item.q} open={i === 0}>
-                <summary>{item.q}<span>+</span></summary>
-                <p>{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="content-section sponsor-section" id="sponsors">
         <div className="section-shell">
           <p className="eyebrow warm">2027 SPONSORS</p>
@@ -228,6 +209,25 @@ export default function Home() {
           <p className="sponsor-note">
             Interested in sponsoring LA Pokerbots? Reach out at <a href="mailto:alexwang770@g.ucla.edu">alexwang770@g.ucla.edu</a>.
           </p>
+        </div>
+      </section>
+
+      <section className="dark-section" id="faq">
+        <div className="stars" aria-hidden="true" />
+        <div className="section-shell night-content">
+          <p className="eyebrow night">FAQ · AFTER DARK</p>
+          <div className="faq-header">
+            <h2>Everything before<br />you ante up.</h2>
+            <span className="mini-sign">LA<br />2027</span>
+          </div>
+          <div className="faq-list">
+            {faqs.map((item, i) => (
+              <details key={item.q} open={i === 0}>
+                <summary>{item.q}<span>+</span></summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
