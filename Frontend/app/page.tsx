@@ -128,7 +128,7 @@ export default function Home() {
                 Build your strategy in Los Angeles and battle it out over 500,000+ hands.
               </p>
               <div className="hero-actions">
-                <a className="button primary" href="https://luma.com/vii7ag1m" target="_blank" rel="noreferrer">Register</a>
+                <a className="button primary" href="https://forms.gle/hBXsHYTpp3BcNHqn7" target="_blank" rel="noreferrer">Register</a>
                 <a className="button secondary" href="#about">Explore the competition</a>
               </div>
               <div className="la-tags" aria-label="Los Angeles theme">
