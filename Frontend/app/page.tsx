@@ -53,7 +53,7 @@ const sponsors = [
   },
   {
     name: "AGI Inc",
-    url: "https://agi.inc/",
+    url: "https://theagi.company/",
     logo: "/sponsors/agi_inc.svg"
   }
 ];
