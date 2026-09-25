@@ -476,9 +476,7 @@ details p { max-width: 760px; padding: 0 0 28px; margin: 0; color: #cdd7ec; font
 .sponsor-3 { background: linear-gradient(145deg, #eee6ff, #fff); color: #5d34d7; }
 .sponsor-4 { background: linear-gradient(145deg, #ffe1eb, #fff); color: #c82968; }
 .sponsor-5 { background: linear-gradient(145deg, #dffcf3, #fff); color: #0a7462; }
-
-.sponsor-card:nth-child(4) { grid-column: 2 / span 2; }
-.sponsor-card:nth-child(5) { grid-column: 4 / span 2; }
+.sponsor-6 { background: linear-gradient(145deg, #eef2ff, #fff); color: #253f8f; }
 
 .sponsor-note { max-width: 100%; margin-top: 28px; color: var(--muted); line-height: 1.6; }
 .sponsor-note a { color: var(--pacific); font-weight: 800; overflow-wrap: anywhere; }
@@ -588,17 +586,12 @@ footer .la-skyline .city, footer .la-skyline .palm path { fill: #061025; stroke:
 
 @media (max-width: 1080px) {
   .sponsor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .sponsor-card,
-  .sponsor-card:nth-child(4) { grid-column: auto; }
-  .sponsor-card:nth-child(5) { grid-column: 1 / -1; }
+  .sponsor-card { grid-column: auto; }
 }
 
 @media (max-width: 820px) {
   .sponsor-grid { grid-template-columns: minmax(0, 1fr); }
-  .sponsor-card,
-  .sponsor-card:nth-child(4),
-  .sponsor-card:nth-child(5) { grid-column: auto; }
-  .sponsor-card { min-height: 170px; padding: 34px 24px; }
+  .sponsor-card { grid-column: auto; min-height: 170px; padding: 34px 24px; }
   .sponsor-logo { width: min(100%, 210px); height: 90px; }
 }
 
